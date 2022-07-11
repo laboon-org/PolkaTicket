@@ -8,7 +8,7 @@ build:
     - CI=false npm install      # Run `yarn install` and `yarn build`
     - CI=false npm run build
   only:
-    - main
+    - master
   artifacts:
     paths:
       - build/

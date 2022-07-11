@@ -1,0 +1,39 @@
+actions:
+  - name: approveTicket
+    definition:
+      kind: synchronous
+      handler: '{{WEB_HOOK}}/ticket/approve'
+  - name: createBuyTicket
+    definition:
+      kind: synchronous
+      handler: '{{WEB_HOOK}}/ticket/createbuy'
+  - name: createEvent
+    definition:
+      kind: synchronous
+      handler: '{{WEB_HOOK}}/event/create'
+  - name: createExchange
+    definition:
+      kind: synchronous
+      handler: '{{WEB_HOOK}}/ticket/create_exchange'
+  - name: createQrCode
+    definition:
+      kind: synchronous
+      handler: '{{WEB_HOOK}}/qr/create'
+  - name: createTicket
+    definition:
+      kind: synchronous
+      handler: '{{WEB_HOOK}}/ticket/create'
+  - name: createWallet
+    definition:
+      kind: synchronous
+      handler: '{{WEB_HOOK}}/user/create'
+custom_types:
+  enums: []
+  input_objects: []
+  objects:
+    - name: wallet
+    - name: event
+    - name: Ticket
+    - name: ticket
+    - name: data
+  scalars: []
