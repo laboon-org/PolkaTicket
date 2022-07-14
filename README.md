@@ -1,2 +1,57 @@
-# polkaTicket
-Polkadot NFT Ticking System
+# Polka-Ticket
+
+- Polkadot: NFT Ticking System
+
+## System Guideline
+
+1. Frontend [Frontend] (front/README.md)
+2. Backend [Backend] (back/README.md)
+3. Contract [Contract] (contract/README.md)
+
+## Submission
+
+### A. Project Description
+
+- Name: Polka-Ticket
+- Description: A decentralized NFT Ticking System for full cycle issuing and manageable in modern ways.
+- We plan to users Substrate in next phase
+
+#### Members
+
+```sh
+1. Team Leader (Blockchain Developer): https://devpost.com/solokop (Hiep Le)
+2. Business Analyst: https://devpost.com/f2haiphong (Hien Nguyen)
+3. Frontend Developer:
+- https://devpost.com/nguyennghidt6 (Nghi Nguyen)
+- Duy Le
+- Tu Nguyen
+4. Backend Developer: Duy Nguyen, Dat Nguyen
+```
+
+### B. 5 minute Pitch Video
+
+- Project Name: Polka-Ticket
+- Presentation-1: https://www.youtube.com/watch?v=l05JZxKclZ4
+- Presentation-2: https://www.youtube.com/watch?v=F6_INsvaY5A (Final One)
+
+#### Design UX/UI
+
+- Figma Link: https://www.figma.com/file/g257qMBIsiP80HGhYO559q/NTS-v2_PolkaTicket?node-id=0%3A1
+
+### C. GitHub Repo Link
+
+- Link: https://github.com/hieple7985/polkaTicket/tree/develop
+
+### D. List of Tech Stack Used
+
+- ReactJS
+- IPFS
+- MoonBeam
+- Solidity
+- TailwindCSS
+- Web3
+- Metamask
+
+### E. Project Demo Link
+
+- Demo: https://polka-ticket.law3.app/
