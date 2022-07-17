@@ -3,22 +3,29 @@ import { ImCheckmark } from 'react-icons/im'
 import { ImCross } from 'react-icons/im'
 import ticketTypes from '../../../data/ticket_types';
 
+interface SelectTypeT {
+  id: number,
+  name: string
+}
 interface Props {
-  selectedType: string;
+  selectedType: SelectTypeT;
   setActiveTypeModal: React.Dispatch<React.SetStateAction<boolean>>;
-  setSelectedType: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedType: React.Dispatch<React.SetStateAction<SelectTypeT>>;
 }
 
 const TicketTypeModal: React.FC<Props> = ({selectedType, setActiveTypeModal, setSelectedType}: Props): React.ReactElement => {
-  const checkType: string = selectedType ? selectedType : ticketTypes[0].type;
-  const [currentType, setCurrentType] = useState<string>(checkType);
+  const checkType: SelectTypeT = selectedType.id ? selectedType : {id: ticketTypes[0].id, name: ticketTypes[0].type};
+  const [currentType, setCurrentType] = useState<SelectTypeT>(checkType)
+
   const confirmModal = (): void => {
     setSelectedType(currentType)
     setActiveTypeModal(false);
   }
+  
   const cancelModal = (): void => {
     setActiveTypeModal(false);
   }
+
   return (
     <section className='modal-wrap'>
       <div className='modal-bg' onClick={cancelModal}></div>
@@ -33,17 +40,17 @@ const TicketTypeModal: React.FC<Props> = ({selectedType, setActiveTypeModal, set
             <div key={ticketType.id} className=' items-center border-b border-solid'>
               <button 
                 className='w-full py-6 flex justify-between items-center'
-                onClick={() => setCurrentType(ticketType.type)}
+                onClick={() => setCurrentType({id: ticketType.id, name: ticketType.type})}
               >
                 <p 
                   className={`font-semibold 
-                    ${ticketType.type === currentType && 'text-primaryColor'}`}
+                    ${ticketType.id === currentType.id && 'text-primaryColor'}`}
                 >
                   {ticketType.type}
                 </p>
                 <i 
                   className={`text-primaryColor 
-                    ${ticketType.type === currentType || 'hidden'}`}
+                    ${ticketType.id === currentType.id || 'hidden'}`}
                 >
                   <ImCheckmark />
                 </i>

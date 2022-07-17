@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {memo} from 'react'
 
 import './OverviewItem.css'
 
@@ -8,4 +8,4 @@ const TicketUsedSign = () => {
   )
 }
 
-export default TicketUsedSign
+export default memo(TicketUsedSign)

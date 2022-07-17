@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, memo } from 'react'
 
 import { BsHeart } from 'react-icons/bs'
 
@@ -14,4 +14,4 @@ const TicketFavourite: React.FC = (): ReactElement => {
   )
 }
 
-export default TicketFavourite
+export default memo(TicketFavourite)

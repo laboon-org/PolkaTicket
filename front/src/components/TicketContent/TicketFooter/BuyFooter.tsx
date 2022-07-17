@@ -1,10 +1,19 @@
 import React from 'react'
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { TicketInterface } from '../../../api/queries';
 
-const BuyFooter = () => {
+interface Props {
+  ticket: TicketInterface
+}
+
+const BuyFooter: React.FC<Props> = ({ticket}: Props): React.ReactElement => {
   const navigate: NavigateFunction = useNavigate();
-  const handleNavigate = (url: string): void => {
-    navigate(url);
+  const isBought = true;
+  const handleNavigate = (): void => {
+    if (isBought)
+      navigate('confirm', {state: {ticket: ticket}});
+    else
+      navigate('add_funds', {state: {ticket: ticket}});
   }
   return (
     <section 
@@ -13,7 +22,7 @@ const BuyFooter = () => {
       <div className='footer-full-w-btn w-11/12'>
         <button 
           className='primary-btn'
-          onClick={() => handleNavigate('buy')}
+          onClick={handleNavigate}
         >
           Buy Ticket
         </button>

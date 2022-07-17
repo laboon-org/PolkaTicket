@@ -22,14 +22,10 @@ const EventTimeModal: React.FC<Props> = ({selectedTime, setSelectedTime, setActi
     setActiveTimeModal(false);
   }
 
-  useEffect(() => {
-    setTimeValue((timeValue) => new Date(timeValue.setSeconds(0, 0)))
-  },[timeValue])
-  
   return (
     <section className='modal-wrap'>
       <div className='modal-bg'></div>
-      <div className='fixed-comp modal modal-wrap--center'>
+      <div className='fixed-comp modal'>
         <div className='modal-exit-btn'>
           <button onClick={cancelModal}>
             <i><ImCross /></i>
@@ -41,7 +37,7 @@ const EventTimeModal: React.FC<Props> = ({selectedTime, setSelectedTime, setActi
             showToolbar={true}
             value={timeValue}
             onChange={(newValue) => {
-              newValue && setTimeValue(newValue);
+              newValue && setTimeValue(new Date(newValue.setSeconds(0, 0)));
             }}
             renderInput={(params) => <TextField {...params} />}
           />

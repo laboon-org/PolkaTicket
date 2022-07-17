@@ -1,20 +1,38 @@
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react/swiper-react.js';
+import { useQuery } from '@apollo/client';
 
 import 'swiper/swiper.min.css';
 import 'swiper/modules/pagination/pagination.min.css';
 
-import categories from '../../data/categories';
-
 import './CategorySlider.css'
+import { getCategories, Category } from '../../api/queries';
+import { toTitleCase } from '../../util/FormatStringToTitle';
 
-const CategorySlider = () => {
-  const [activeCategory, setActiveCategory] = useState('All');
+interface Props {
+  categoryID: number,
+  setCategoryID: React.Dispatch<React.SetStateAction<number>>,
+}
 
-  const handleClick = (category: string) :void => {
-    setActiveCategory(category);
-    //TODO: Change ticket lists
+const CategorySlider: React.FC<Props> = ({categoryID, setCategoryID}: Props): React.ReactElement => {
+  const [categories, setCategories] = useState<Category[] | undefined>();
+  const { loading, error, data } = useQuery(getCategories, {
+    onCompleted: (data) => {
+      setCategories(data.categories);
+    }
+  });
+  
+  if (loading) return <p>Loading categories...</p>;
+
+  if (error) {
+    console.log(error);
+    return <p>Cannot load categories!</p>;
   }
+  
+  const handleClick = (categoryID: number) :void => {
+    setCategoryID(categoryID);
+  }
+
   return (
     <div id="category-slider-wrap">
       <Swiper
@@ -23,18 +41,18 @@ const CategorySlider = () => {
       >
         {/* Button: All */}
         <SwiperSlide 
-          className={`category-btn ${activeCategory === "All" ? 'active' : ''}`} 
-          onClick={() => handleClick('All')}
+          className={`category-btn ${categoryID === -1 ? 'active' : ''}`} 
+          onClick={() => handleClick(-1)}
         >
           All
         </SwiperSlide>
         {/* Buttons: Categories */}
-        {categories.map(category => (
+        {categories && categories.map(category => (
           <SwiperSlide key={category.id} 
-            className={`category-btn ${activeCategory === category.name ? 'active' : ''}`}
-            onClick={() => handleClick(category.name)}
+            className={`category-btn ${categoryID === category.id ? 'active' : ''}`}
+            onClick={() => handleClick(category.id)}
           >
-            {category.name}
+            {toTitleCase(category.name)}
           </SwiperSlide>
         ))}
       </Swiper>
@@ -42,4 +60,4 @@ const CategorySlider = () => {
   )
 }
 
-export default CategorySlider
+export default memo(CategorySlider)

@@ -6,7 +6,7 @@ export interface ConvertCategoriesType {
   check: boolean,
 }
 
-const ConvertCategories = () => {
+const ConvertCategories = (categories:ConvertCategoriesType[]) => {
   const result = categories.map(ele => {
     return { ...ele, check: false }
   })

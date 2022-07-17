@@ -1,15 +1,17 @@
-# NFT Ticket System v2
+# Polka-Ticket
+
+- Frontend
 
 ## Getting Started
 
 0. Prequisites
 
 ```sh
-node v16
-npm v8
+node v14.18.0
+npm v6.14.15
 ```
 
-1. Make sure you have https://nodejs.org/ installed on your computer
+1. Make sure you have <https://nodejs.org/> installed on your computer
 2. Clone your new repository:
 
    `git clone <YOUR_REPOSITORY_URL>`
@@ -18,11 +20,9 @@ npm v8
 4. Install dependencies:
 
    `npm install`
+   Runs the app in the development mode.\
+   Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+   The page will reload if you make edits.\
+   You will also see any lint errors in the console.
 
-5. Start development server:
-
-   `npm run start`
-
-6. Open https://localhost:3000 in your browser to see application.
-
-[logo]: https://media.graphassets.com/BKYMf3aYTA677cyTS7pd "LB - NTS"
+[logo]: https://media.graphassets.com/BKYMf3aYTA677cyTS7pd "Laboon, Polka-Ticket"

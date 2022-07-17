@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, memo } from 'react'
 
 interface Props {
   price: number,
@@ -9,10 +9,10 @@ const TicketPrice: React.FC<Props> = (props: Props): ReactElement => {
     <>
       <p className='text-primaryColor select-none text-right leading-5'>
         {props.price} 
-        <span> XTZ</span>
+        <span> DEV</span>
       </p>
     </>
   )
 }
 
-export default TicketPrice
+export default memo(TicketPrice)

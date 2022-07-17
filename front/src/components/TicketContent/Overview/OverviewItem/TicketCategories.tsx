@@ -1,14 +1,14 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, memo } from 'react'
 
 import './OverviewItem.css'
-import { Category } from '../../../../data/categories';
+import {toTitleCase} from '../../../../util/FormatStringToTitle'
 
 interface Props {
   categories: [{
-    eventCategory: {
+    category: {
       id: number;
       name: string;
-  };
+    };
   }],
   isFull?: boolean,
 }
@@ -16,30 +16,32 @@ interface Props {
 const TicketCategories: React.FC<Props> = (props: Props): ReactElement => {
   return (
     <>
-      <div>
-        {props.isFull
-        ? <>
-          {props.categories.map(category => (
-            <div key={category.eventCategory.id} className='ticket-category mr-1 my-1'
-            >
-              {category.eventCategory.name}
-            </div>
-          ))}
-          </>
-        : <>
-            <div className='ticket-category mr-1 my-1'>
-              {props.categories[0].eventCategory.name}
-            </div>
-            {props.categories.length > 1 &&
-              <div className='ticket-category mr-1 my-1'>
-                +{props.categories.length - 1}
+      {props.categories && props.categories.length > 0 && 
+        <div>
+          {props.isFull
+          ? <>
+            {props.categories.map(category => (
+              <div key={category.category.id} className='ticket-category mr-1 my-1'
+              >
+                {toTitleCase(category.category.name)}
               </div>
-            }
-          </>
-        }
-      </div>
+            ))}
+            </>
+          : <>
+              <div className='ticket-category mr-1 my-1'>
+                {toTitleCase(props.categories[0].category.name)}
+              </div>
+              {props.categories.length > 1 &&
+                <div className='ticket-category mr-1 my-1'>
+                  +{props.categories.length - 1}
+                </div>
+              }
+            </>
+          }
+        </div>
+      }
     </>
   )
 }
 
-export default TicketCategories
+export default memo(TicketCategories)
