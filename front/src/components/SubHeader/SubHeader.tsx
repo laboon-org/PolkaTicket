@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { NavigateOptions, useNavigate } from 'react-router-dom';
 
 import { IoMdArrowRoundBack } from 'react-icons/io';
 
@@ -11,7 +11,10 @@ interface Props {
 const SubHeader:React.FC<Props> = (props: Props): ReactElement => {
   const navigate = useNavigate();
   const handleNavigate = (): void => {
-    navigate(props.rootURL);
+    if (props.rootURL === "-1") {
+      navigate(-1);
+    }
+    else navigate(props.rootURL);
   }
 
   return (

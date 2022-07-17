@@ -1,11 +1,11 @@
 import React from 'react'
-import { useNavigate, NavigateFunction } from 'react-router-dom';
+import { useNavigate, NavigateFunction, useParams } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa'
 import {IoIosArrowForward} from 'react-icons/io'
 import {IoWalletSharp} from 'react-icons/io5'
 import {ImExit} from 'react-icons/im'
 
-import { useGlobalExit } from '../../../util/GlobalExit'
+import { useGlobalExit } from '../../../context/GlobalExit'
 
 import SubHeader from '../../SubHeader/SubHeader'
 import Disconnect from '../../DisconnectModal/DisconnectModal'
@@ -14,6 +14,7 @@ import './UserSettings.css'
 
 
 const UserSetting = () => {
+  const {userName} = useParams();
   const {isExit, setExit} = useGlobalExit();
   const navigate: NavigateFunction = useNavigate();
   const handleNavigate = (url: string): void => {
@@ -26,7 +27,7 @@ const UserSetting = () => {
       )}
       <div className='container'>
         <section>
-          <SubHeader pageName='Settings' rootURL='/user' />
+          <SubHeader pageName='Settings' rootURL={`/user/${userName}`} />
         </section>
         <section className='mt-6'>
           <article 

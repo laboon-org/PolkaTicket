@@ -1,17 +1,29 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigate, NavigateFunction } from 'react-router-dom';
 import './Disconnect.css'
-
 import IMG_EXIT from '../../assets/images/disconnect-btn-2.png'
+import { AccountContext, UserInfo } from '../../context/AccountData';
+import detectEthereumProvider from "@metamask/detect-provider";
 
 interface Props {
   setExit: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Disconnect: React.FC<Props> = (props: Props): React.ReactElement => {
+  const userData = useContext(AccountContext)
+
   const navigate: NavigateFunction = useNavigate();
-  const confirmExit = (): void => {
-    props.setExit(false);
+  const confirmExit = async () => {
+    // TODO: no recommend this solution!
+    userData.setAccount(
+      {
+        id: '',
+        user: '',
+        img: '',
+        fetch: false, 
+        balance: 0
+      }
+    )
     navigate('/login');
   }
   const cancelExit = (): void => {
@@ -19,18 +31,18 @@ const Disconnect: React.FC<Props> = (props: Props): React.ReactElement => {
   }
 
   return (
-    <section 
+    <section
       className='modal-wrap'
     >
-      <div 
+      <div
         className='modal-bg'
         onClick={cancelExit}
       ></div>
-      <div 
+      <div
         className='fixed-comp modal'
       >
         <div className='mt-16'>
-          <img src={IMG_EXIT} alt="Exit" className='object-cover h-12'/>
+          <img src={IMG_EXIT} alt="Exit" className='object-cover h-12' />
         </div>
         <div className='mt-10'>
           <p className='font-semibold text-xl'>Are you sure want to disconnect?</p>

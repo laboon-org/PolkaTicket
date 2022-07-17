@@ -1,13 +1,13 @@
 import React, { ReactElement } from 'react'
 import { NavigateFunction, useNavigate } from 'react-router-dom';
-import { GrLocation } from 'react-icons/gr'
+import { IoLocationSharp } from 'react-icons/io5'
 import { AiFillPlusCircle } from 'react-icons/ai'
 
 import EventNotFound from './EventNotFound';
 import IMG_ADD_EVENT from '../../assets/images/add-event-img.png'
 import TicketTitle from '../TicketContent/Overview/OverviewItem/TicketTitle';
 import TicketCategories from './EventCategories';
-import { Event } from '../../data/events';
+import { Event } from '../../api/queries';
 
 interface Props {
   events?: Event[];
@@ -26,7 +26,7 @@ const Issued: React.FC<Props> = (props: Props): ReactElement => {
   return (
     <article className='mb-40'>
 
-      {props.events
+      {props.events && props.events.length > 0
         ?
         <>
           <div className='w-full flex justify-end z-40'>
@@ -61,7 +61,7 @@ const Issued: React.FC<Props> = (props: Props): ReactElement => {
                       <div
                         className='overview-title mt-4 w-full text-xl font-semibold select-none'
                       >
-                        <TicketTitle name={event.name} />
+                        <TicketTitle name={event.name}/>
                       </div>
                       <div className='flex justify-between items-center mt-2'>
                         {/* <div className='text-xs font-semibold'>
@@ -70,9 +70,9 @@ const Issued: React.FC<Props> = (props: Props): ReactElement => {
                       </div>
                     </div>
                     {/* Location */}
-                    <div className='flex flex-1 items-center mb-2 flex'>
-                      <div className='issued-event-details'>
-                        <i><GrLocation /></i>
+                    <div className='flex flex-1 items-center mb-2'>
+                      <div className='flex font-semibold'>
+                        <i className='icon-primary-color mr-4'><IoLocationSharp /></i>
                         <p>{event.location}</p>
                       </div>
                     </div>

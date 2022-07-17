@@ -1,21 +1,32 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {BsCheckLg} from 'react-icons/bs'
 import {BiCopy} from 'react-icons/bi'
 
-import IMG_TEZOS from '../../../../assets/images/icon-tezos.png'
+import IMG_MOONBASE from '../../../../assets/images/icon-moonbase.png'
 import IMG_TETHER from '../../../../assets/images/icon-tether.png'
-import IMG_ETHERUM from '../../../../assets/images/icon-etherum.png'
+import IMG_POLKADOT from '../../../../assets/images/icon-polkadot.png'
 
 import SubHeader from '../../../SubHeader/SubHeader'
 
 import wallets from '../../../../data/wallets'
+import { useParams } from 'react-router-dom';
+import ErrorPage from '../../../Error/Error'
+import { AccountContext } from '../../../../context/AccountData'
 
 const WalletSetting = () => {
+  const userData = useContext(AccountContext)
+console.log(userData);
+
+  const {userName} = useParams();
+  // const userData = localStorage.getItem('user');
+  // const user = userData && JSON.parse(userData);
+
+  if (userData.account.user !== userName) return <ErrorPage />
   return (
     <div className='wrap border-x-only'>
       <div className='container relative'>
         <section>
-          <SubHeader pageName='My Wallet' rootURL='/user/settings' />
+          <SubHeader pageName='My Wallet' rootURL={`/user/${userName}/settings`} />
         </section>
         <section className='mt-10 wallet-setting-section'>
           {wallets.map(wallet => (
@@ -36,7 +47,7 @@ const WalletSetting = () => {
         <section className='mt-6 wallet-setting-section'>
           <h6 className=''>Wallet Address:</h6>
           <div className='flex justify-between items-center mt-1'>
-            <p className='text-primaryColor'>0x05611eAf8505bdAA991f0c62C</p>
+            <p className='text-primaryColor'>{userData.account.user}</p>
             <button className='hover:text-primaryColor'>
               <i className='text-xl'><BiCopy /></i>
             </button>
@@ -45,15 +56,15 @@ const WalletSetting = () => {
         <section className='mt-6 wallet-setting-section'>
           <h6 className='mt-6 font-semibold text-lg'>Balance:</h6>
           <div className='balance-items'>
-
+            {/* TODO: change flexible data */}
             <div className='mt-3 flex justify-between items-start'>
               <div className='flex items-center'>
-                <img src={IMG_TEZOS} alt="Tezos" className='object-cover h-6'/>
-                <p className='ml-3 text-lg'>Tezos</p>
+                <img src={IMG_MOONBASE} alt="Tezos" className='object-cover h-6'/>
+                <p className='ml-3 text-lg'>Moonbase Alpha</p>
               </div>
               <div className='flex flex-col items-end'>
-                <p className='text-lg font-semibold'>3,025<span> XTZ</span></p>
-                <p className='ml-3 text-sm text-gray-500'>(13,025 $)</p>
+                <p className='text-lg font-semibold'>{Number(userData.account.balance).toFixed(3)}<span> DEV</span></p>
+                <p className='ml-3 text-sm text-gray-500'>(0 $)</p>
               </div>
             </div>
 
@@ -63,19 +74,19 @@ const WalletSetting = () => {
                 <p className='ml-3 text-lg'>Tether</p>
               </div>
               <div className='flex flex-col items-end'>
-                <p className='text-lg font-semibold'>3,025<span> USDT</span></p>
-                <p className='ml-3 text-sm text-gray-500'>(32,025 $)</p>
+                <p className='text-lg font-semibold'>0<span> USDT</span></p>
+                <p className='ml-3 text-sm text-gray-500'>(0 $)</p>
               </div>
             </div>
 
             <div className='mt-3 flex justify-between items-start'>
               <div className='flex items-center'>
-                <img src={IMG_ETHERUM} alt="Etherum" className='object-cover h-6'/>
+                <img src={IMG_POLKADOT} alt="Etherum" className='object-cover h-6'/>
                 <p className='ml-3 text-lg'>Etherum</p>
               </div>
               <div className='flex flex-col items-end'>
-                <p className='text-lg font-semibold'>5,005<span> ETH</span></p>
-                <p className='ml-3 text-sm text-gray-500'>(5,005 $)</p>
+                <p className='text-lg font-semibold'>0<span> ETH</span></p>
+                <p className='ml-3 text-sm text-gray-500'>(0 $)</p>
               </div>
             </div>
           </div>

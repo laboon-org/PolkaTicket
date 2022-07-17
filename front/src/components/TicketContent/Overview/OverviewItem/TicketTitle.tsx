@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, memo } from 'react'
 
 interface Props {
   name: string
@@ -12,4 +12,4 @@ const TicketTitle: React.FC<Props> = (props: Props): ReactElement => {
   )
 }
 
-export default TicketTitle
+export default memo(TicketTitle)

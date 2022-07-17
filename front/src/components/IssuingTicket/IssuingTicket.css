@@ -104,3 +104,15 @@
   transform: translateY(-50%);
 }
 
+.wrap-event-list{
+  max-height: 70vh;
+  overflow-y: auto;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.fill-primary-color{
+  fill: theme('colors.primaryColor')
+}

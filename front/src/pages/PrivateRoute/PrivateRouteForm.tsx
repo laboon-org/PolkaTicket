@@ -15,7 +15,7 @@ const PrivateRouteForm = () => {
   }
 
   const handleSubmit = () => {
-    if (user === "admin" && password === "9kATN6kfVU1pjAvi") {
+    if (user === "admin" && password === "9rR9fT29tvPZ") {
       localStorage.setItem('private_route', JSON.parse('true'));
       navigate('/');
     }
@@ -50,7 +50,7 @@ const PrivateRouteForm = () => {
         </div>
       </div>
       <p className="text-center text-gray-500 text-xs">
-        &copy;Copyright © 2022, all right reserved. Developed by Laboon.org
+        &copy; 2022, <a href="https://laboon.org">Laboon .Pte .Ltd</a>
       </p>
     </div>
   )

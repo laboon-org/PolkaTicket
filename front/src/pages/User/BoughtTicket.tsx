@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 
@@ -8,28 +8,58 @@ import BoughtFooter from '../../components/TicketContent/TicketFooter/BoughtFoot
 import BoughtTicketOverview from '../../components/TicketContent/Overview/BoughtTicketOverview';
 
 import tickets, { Ticket } from '../../data/tickets';
+import ErrorPage from '../../components/Error/Error';
+import { getBoughtTicketByIDAndOwner, TicketInterface } from '../../api/queries';
+import { useQuery } from '@apollo/client';
+import Loading from '../../components/Loading/Loading';
+import { AccountContext } from '../../context/AccountData';
 
 const BoughtTicket: React.FC = (): ReactElement => {
-  const {id} = useParams();
-  const ticket: Ticket | undefined = id ? tickets.find(ticket => ticket.id === parseInt(id)) : undefined;
-  if (ticket) {
+  const userData = useContext(AccountContext)
+
+  const [ticket, setTicket] = useState<TicketInterface[]>([])
+  const {id, userName} = useParams();
+  // const userData = localStorage.getItem('user');
+  // const user = userData && JSON.parse(userData);
+
+  if (userData.account.user !== userName) return <ErrorPage />
+  
+  const { loading, error, data } = useQuery(getBoughtTicketByIDAndOwner, {
+    variables: {
+      ownerName: userName,
+      ticketID: (id && parseInt(id))
+    },
+    skip: id === undefined || isNaN(parseInt(id)),
+    onCompleted: (data) => {
+      setTicket(data.tickets);
+    },
+    fetchPolicy: "no-cache"
+  });
+  if (loading) return <Loading />;
+
+  if (error) {
+    console.log(error);
+    return <ErrorPage />
+  }
+
+  if (ticket.length > 0) {
     return (
-      <div className='wrap border-x-only'>
-        <TicketHeader image={ticket.ticket_info.event.image} rootURL="/user"/>
-        <div className='container relative'>
+      <div className='wrap border-x-only min-h-screen'>
+        <TicketHeader image={ticket[0].event.image} rootURL={`/user/${userName}`} />
+        <div className='w-11/12 mx-auto flex flex-col items-center relative'>
           {/* Ticket Overview */}
-            <BoughtTicketOverview ticket={ticket}/>
+            <BoughtTicketOverview ticket={ticket[0]}/>
           {/* Ticket Details */}
           <section className='w-full mt-10 border-t border-solid border-gray-100 mb-52'>
-            <TicketDetails ticket={ticket.ticket_info} />
+            <TicketDetails ticket={ticket[0]} />
           </section>
-          <BoughtFooter />
+          <BoughtFooter ticket={ticket[0]}/>
         </div>
       </div>
     )
   }
   else {
-    return <div>Error 404!</div>
+    return <ErrorPage />
   }
 }
 

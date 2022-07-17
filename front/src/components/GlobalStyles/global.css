@@ -60,9 +60,22 @@ section {
   border-left-width: 0;
   border-right-width: 0;
 }
-
+.primaryColor-icon{
+  color: theme('colors.primaryColor');
+}
+.border-bottom{
+  border-bottom: 1px solid #D9D9D9;
+}
+iframe{
+  display: none;
+}
 .ticket-border {
-  @apply border border-solid border-gray-300 rounded-3xl overflow-hidden;
+  @apply border-2 border-solid border-gray-200 rounded-3xl overflow-hidden hover:border-primaryColor hover:bg-gray-50;
+  &:hover {
+    .overview-title {
+      @apply text-primaryColor;
+    }
+  }
 }
 
 .fixed-comp {
@@ -141,4 +154,14 @@ section {
   p {
     @apply text-gray-400 font-semibold ml-3;
   }
+}
+
+.disable-button{
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.5 !important;
+}
+
+.icon-primary-color{
+    @apply block rounded-full text-2xl text-primaryColor;
 }

@@ -2,10 +2,10 @@ stages:
   - build
   - deploy
 build:
-  image: node:14.18.3  # Run the job in a `node` docker image
+  image: node:14.18.3
   stage: build
   script:
-    - CI=false npm install      # Run `yarn install` and `yarn build`
+    - CI=false npm install
     - CI=false npm run build
   only:
     - master
@@ -21,7 +21,7 @@ pages:
     - cp build/index.html build/404.html
     - mv build public
   only:
-    - main
+    - master
   artifacts:
     paths:
       - public

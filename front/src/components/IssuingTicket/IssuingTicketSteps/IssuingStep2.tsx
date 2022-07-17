@@ -1,30 +1,49 @@
-import React, { useState } from 'react'
-import { BsFillCalendarEventFill, BsFillClockFill } from 'react-icons/bs'
+import React, { MutableRefObject, useState } from 'react'
 import { FaCamera } from 'react-icons/fa'
 import { RiTicketFill } from 'react-icons/ri'
+import { CreateTicket } from '../../../api/mutation/createTicket';
+import UploadImage from '../../../util/UploadImage';
+import LoadingField from '../../LoadingField/LoadingField';
 import TicketTypeModal from '../IssuingTicketModal/TicketTypeModal';
-
+interface SelectTypeT {
+  id: number,
+  name: string
+}
 interface Props {
   setStep: React.Dispatch<React.SetStateAction<number>>;
+  submitData: MutableRefObject<CreateTicket>
 }
-const IssuingStep2: React.FC<Props> = ({setStep}: Props): React.ReactElement => {
+
+const IssuingStep2: React.FC<Props> = ({ setStep, submitData }: Props): React.ReactElement => {
   const [isFirstTime, setFirstTime] = useState<boolean>(true);
   const [activeTypeModal, setActiveTypeModal] = useState<boolean>(false);
-  const [selectedType, setSelectedType] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+  const [selectedType, setSelectedType] = useState<SelectTypeT>({ id: 0, name: '' });
   const [selectedPrice, setSelectedPrice] = useState<string>('');
   const [selectedAmount, setSelectedAmount] = useState<string>('');
-  const [selectedImgURL, setSelectedImgURL] = useState<string>();
+  const [selectedImgURL, setSelectedImgURL] = useState<File | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (e.target.files) {
-      const objectUrl: string = URL.createObjectURL(e.target.files[0])
-      setSelectedImgURL(objectUrl);
+      setSelectedImgURL(e.target.files[0]);
     }
   }
 
-  const checkEmptyInput = (): void => {
+  const checkEmptyInput = async () => {
     isFirstTime && setFirstTime(false);
-    if (selectedType && selectedPrice && selectedAmount && selectedImgURL) setStep(step => step + 1);
+    if (selectedType.id && selectedPrice && selectedAmount && selectedImgURL) {
+      setLoading(true)
+      const img = await UploadImage(selectedImgURL)
+      setLoading(false)
+      submitData.current = {
+        ...submitData.current,
+        ticket_type: selectedType.id,
+        price: selectedPrice,
+        supply: Number(selectedAmount),
+        image_link: img
+      }
+      setStep(step => step + 1);
+    }
   }
 
   return (
@@ -32,9 +51,9 @@ const IssuingStep2: React.FC<Props> = ({setStep}: Props): React.ReactElement => 
       {/* Modal */}
       <>
         {activeTypeModal && (
-          <TicketTypeModal 
-            selectedType={selectedType} 
-            setSelectedType={setSelectedType} 
+          <TicketTypeModal
+            selectedType={selectedType}
+            setSelectedType={setSelectedType}
             setActiveTypeModal={setActiveTypeModal}
           />
         )}
@@ -45,24 +64,24 @@ const IssuingStep2: React.FC<Props> = ({setStep}: Props): React.ReactElement => 
           <label htmlFor="issuing-ticket-img-input">Cover image *</label>
         </div>
         <div >
-          <label 
+          <label
             htmlFor='issuing-ticket-img-input'
             className={`issuing-cover-img w-full overflow-hidden ${!isFirstTime && !selectedImgURL && 'alert'} ${selectedImgURL && 'active'}`}
           >
-            {selectedImgURL 
-            ?
-            <img 
-              src={selectedImgURL} alt="Selected Cover" 
-              className='object-cover w-full h-full object-center'
-            />
-            :
-            <>
-              <i className='text-3xl'><FaCamera /></i>
-              <p className='mt-2'>Select cover image</p>
-            </>
+            {selectedImgURL
+              ?
+              <img
+                src={URL.createObjectURL(selectedImgURL)} alt="Selected Cover"
+                className='object-cover w-full h-full object-center'
+              />
+              :
+              <>
+                <i className='text-3xl'><FaCamera /></i>
+                <p className='mt-2'>Select cover image</p>
+              </>
             }
           </label>
-          <input 
+          <input
             type="file" id="issuing-ticket-img-input"
             className='hidden' accept="image/*"
             onChange={handleChange}
@@ -81,19 +100,19 @@ const IssuingStep2: React.FC<Props> = ({setStep}: Props): React.ReactElement => 
           </label>
         </div>
         <div className='mt-2'>
-          <button 
-            type="button" 
+          <button
+            type="button"
             id="issuing-ticket-type-input"
-            className={`issuing-input-btn ${!isFirstTime && !selectedType && 'alert'} ${selectedType ? 'active' : 'empty'}`}
+            className={`issuing-input-btn ${!isFirstTime && !selectedType.id && 'alert'} ${selectedType.id ? 'active' : 'empty'}`}
             onClick={() => setActiveTypeModal(true)}
           >
-            <p>{selectedType ? selectedType : 'Select ticket type'}</p>
+            <p>{selectedType.id ? selectedType.name : 'Select ticket type'}</p>
             <i><RiTicketFill /></i>
           </button>
         </div>
-        <div className={`mt-2 ${!isFirstTime && !selectedType ? 'block' : 'hidden'}`}>
-            <p className='text-red-600'>*Please fill in the information</p>
-          </div>
+        <div className={`mt-2 ${!isFirstTime && !selectedType.id ? 'block' : 'hidden'}`}>
+          <p className='text-red-600'>*Please fill in the information</p>
+        </div>
       </article>
 
       {/* Ticket Price */}
@@ -102,15 +121,15 @@ const IssuingStep2: React.FC<Props> = ({setStep}: Props): React.ReactElement => 
           <label htmlFor="issuing-ticket-price-input">Price *</label>
         </div>
         <div className={`issuing-input mt-2 ${!isFirstTime && !selectedPrice && 'alert'} ${selectedPrice && 'active'}`}>
-          <input 
-            type="number" 
+          <input
+            type="number"
             min="0"
-            id="issuing-ticket-price-input" 
+            id="issuing-ticket-price-input"
             placeholder='Set price'
             value={selectedPrice}
             onChange={(e) => setSelectedPrice(e.target.value)}
           />
-          <p>XTZ</p>
+          <p>DEV</p>
         </div>
         <div className={`mt-2 ${!isFirstTime && !selectedPrice ? 'block' : 'hidden'}`}>
           <p className='text-red-600'>*Please fill in the information</p>
@@ -123,10 +142,10 @@ const IssuingStep2: React.FC<Props> = ({setStep}: Props): React.ReactElement => 
           <label htmlFor="issuing-ticket-amount-input">Amount *</label>
         </div>
         <div className={`issuing-input mt-2 ${!isFirstTime && !selectedAmount && 'alert'} ${selectedAmount && 'active'}`}>
-          <input 
-            type="number" 
+          <input
+            type="number"
             min="0"
-            id="issuing-ticket-amount-input" 
+            id="issuing-ticket-amount-input"
             placeholder='Set amount of ticket'
             value={selectedAmount}
             onChange={(e) => setSelectedAmount(e.target.value)}
@@ -137,9 +156,11 @@ const IssuingStep2: React.FC<Props> = ({setStep}: Props): React.ReactElement => 
         </div>
       </article>
       <article className='footer-full-w-btn w-full mt-10 mb-32'>
-        <button className='primary-btn' onClick={checkEmptyInput}>
-          Continue
-        </button>        
+        <button className={`primary-btn ${loading && 'disable-button'}`} onClick={checkEmptyInput}>
+          {
+            loading ? <LoadingField/> : 'Continue'
+          }
+        </button>
       </article>
     </>
   )

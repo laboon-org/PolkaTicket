@@ -17,10 +17,10 @@ const Ticket: React.FC = (): React.ReactElement => {
         <TicketHeader image={ticket.event.image} rootURL="/user"/>
         <div className='container relative'>
           {/* Ticket Overview */}
-            <TicketOverview ticket={ticket} />
+            {/* <TicketOverview ticket={ticket} /> */}
           {/* Ticket Details */}
           <section className='w-full mt-10 border-t border-solid border-gray-100 mb-32'>
-            <TicketDetails ticket={ticket} />
+            {/* <TicketDetails ticket={ticket} /> */}
           </section>
         </div>
       </div>

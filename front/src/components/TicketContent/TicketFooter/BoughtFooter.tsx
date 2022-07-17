@@ -1,11 +1,25 @@
 import React from 'react'
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { TicketInterface } from '../../../api/queries';
 
-const BoughtFooter: React.FC = (): React.ReactElement => {
+interface Props {
+  ticket: TicketInterface
+}
+
+const BoughtFooter: React.FC<Props> = ({ticket}: Props): React.ReactElement => {
   const navigate: NavigateFunction = useNavigate();
   const handleNavigate = (url: string): void => {
     navigate(url);
   }
+
+  const handleNavigateWWithQRCode = (url: string, data: string): void => {
+    navigate(url, {state: {qrcode: data}});
+  }
+
+  const handleNavigateWWithTicket = (url: string, ticket: TicketInterface): void => {
+    navigate(url, {state: {ticket: ticket}});
+  }
+
   return (
     <section 
       className='fixed-comp sub-footer'
@@ -13,7 +27,7 @@ const BoughtFooter: React.FC = (): React.ReactElement => {
       <div className='footer-full-w-btn w-11/12'>
         <button 
           className='primary-btn'
-          onClick={() => handleNavigate('qr_code')}
+          onClick={() => handleNavigateWWithQRCode('qr_code', ticket.qrcode)}
         >
           Show QR Code
         </button>
@@ -26,7 +40,7 @@ const BoughtFooter: React.FC = (): React.ReactElement => {
           </button>
           <button 
             className='secondary-btn ml-4'
-            onClick={() => handleNavigate('transfer')}
+            onClick={() => handleNavigateWWithTicket('transfer', ticket)}
           >
             Transfer
           </button>
