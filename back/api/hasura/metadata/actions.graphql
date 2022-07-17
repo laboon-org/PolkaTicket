@@ -52,6 +52,7 @@ type Mutation {
     supply: Int!
     approver: jsonb
     price: float8!
+    image_link: String!
   ): Ticket
 }
 
@@ -63,6 +64,7 @@ type Mutation {
 
 type wallet {
   wallet_address: String
+  user_id: Int!
 }
 
 type event {

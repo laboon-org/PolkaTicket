@@ -7,7 +7,6 @@ query ($event:Int!) {
       event
       id
       owner_address
-      quantity_sold
       status
       ticket_type
     }

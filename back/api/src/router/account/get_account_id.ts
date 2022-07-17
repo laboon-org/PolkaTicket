@@ -9,6 +9,11 @@ query get_account($id: Int!) {
     ticket_bought
     ticket_issued
     ticket_sold
+    money_total_ticket_mul
+    money_total_ticket_ot
+    ticket_one_time_use
+    ticket_multi_use
+    total_proceeds
   }
 }
 `;

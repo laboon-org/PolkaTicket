@@ -6,8 +6,9 @@
   "scripts": {
     "test": "bash ./env_execution.sh dev && nodemon -r esm src/server.ts ",
     "stage": "bash ./env_execution.sh test && nodemon -r esm src/server.ts ",
-    "start": "bash ./env_execution.sh prod && node src/server.js",
-    "build": "tsc",
+    "start": "bash ./env_execution.sh prod && node dist/server.js",
+    "build": "tsc --build",
+    "clean": "tsc --build --clean",
     "postinstall": "npm run build"
   },
   "keywords": [],
