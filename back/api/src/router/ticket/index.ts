@@ -9,6 +9,8 @@ const create_user_access = require("./create_approver");
 const get_user_access = require("../account/get_user_access");
 const create_exchange = require("./create_exchange")
 const update_account = require("../account/update_account")
+const update_event_ticket = require("../event/update_event")
+const get_event_ticket = require("../statistic/get_event")
 var moment = require("moment-timezone");
 router.post("/close", async (req: any, res: any) => {
   const data = req.body.event.data.new;
@@ -38,7 +40,8 @@ router.post("/create", async (req: any, res: any) => {
     ticket_type,
     supply,
     approver,
-    price
+    price,
+    image_link
   } = req.body.input;
   var dem:any=0;
   try {
@@ -51,16 +54,22 @@ router.post("/create", async (req: any, res: any) => {
         owner_address,
         approver,
         ticket_type,
-        price
+        price,
+        image_link
       });
       console.log("test123", data);
       dem=dem+1
       console.log("dem",dem)
     }
     const account= await get_account(owner_address)
+    const event_data = await get_event_ticket({id:event})
     console.log(account)
     const ticket_issued = account.data.UserNonce[0].ticket_issued+dem
-    const update = await update_account({wallet_address:owner_address,input:{ticket_issued}})
+    const update = await update_account({id:account.data.UserNonce[0].id,input:{ticket_issued}})
+    const data_update_event = await update_event_ticket({id:event,input:{
+      ticket_issued:event_data.data.Event[0].ticket_issued+dem
+    }})
+    console.log(data_update_event)
     console.log(update,account)
     return res.status(200).json({
       data: {

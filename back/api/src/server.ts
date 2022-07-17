@@ -11,7 +11,7 @@ http.createServer(function (req:any, res:any) {
   // res.setHeader('Access-Control-Allow-Methods','Content-Type','Authorization');
   res.end("helo word");
 });
-app.post("/hello", async (req: any, res: any) => {
+app.get("/hello", async (req: any, res: any) => {
   return res.json({
     hello: "world",
   });
@@ -23,6 +23,4 @@ app.use("/",require('./router/account/index'))
 app.use("/qr",require('./router/qrcode/index'))
 app.use("/event",require('./router/event/index'))
 app.use("/ticket",require('./router/ticket/index'))
-app.use("/api",require('./router/user'))
-
 app.listen(PORT);

@@ -8,7 +8,6 @@ router.post("/create", async (req: any, res: any) => {
     const { end_date, image, owner, localtion, name, start_date, catogory_id } = req.body.input;
   try {
     const data = await create_event({end_date, image, owner, localtion, name, start_date},catogory_id)
-    console.log(data.data.insert_Event.returning[0].wallet_address)
     return res.json({
         event: data.data.insert_Event
       })

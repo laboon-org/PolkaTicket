@@ -2,8 +2,8 @@ const fetch = require("../../fetch/index")
 require('dotenv').config()
 
 const create_accounts = `
-mutation ($wallet_address: String!, $input: UserNonce_set_input!) {
-  update_UserNonce(where: {UserWallet: {wallet_address: {_eq: $wallet_address}}}, _set: $input) {
+mutation ($id: Int!, $input: UserNonce_set_input!) {
+  update_UserNonce(where: {id: {_eq: $id}}, _set: $input) {
     affected_rows
     returning {
       address_id
@@ -14,6 +14,7 @@ mutation ($wallet_address: String!, $input: UserNonce_set_input!) {
     }
   }
 }
+
 
 
 `;

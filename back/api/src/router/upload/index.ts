@@ -6,10 +6,12 @@ const upload = multer({
     storage: multer.memoryStorage(),
   });
 router.post("/uploadfile", upload.single("file"), async (req:any, res:any) => {
-  console.log(req.body)
-    const {base64} = req.body
+  res.setHeader('Content-Type', 'multipart/form-data');
+  res.setHeader('Access-Control-Allow-Origin','*');
+  res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
+  console.log(req.file)
   try {
-    const data = await ipfs(base64)
+    const data = await ipfs(req.file.buffer)
     console.log(data)
     res.status(200).json(data)
   } catch (err) {

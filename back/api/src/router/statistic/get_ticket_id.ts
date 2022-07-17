@@ -11,10 +11,6 @@ query ($id:Int!) {
       price
       qrcode
       status
-      ticket_issued
-      ticket_sold
-      ticket_type
-      total_proceed
     }
   }
   

@@ -1,8 +1,8 @@
 import { create } from "ipfs-http-client";
 import { fromString } from "uint8arrays/from-string";
 
-const id = "2BT4sEB6gZ6reCeQt5sNMmiEHix";
-const sercet = "09dd2787c6b551987be40e4c55807042";
+const id = "2BSmoijBj3BUXvPXtSNHnnK1b8m";
+const sercet = "e5cd332f98d4610eddfbee898c0b8b8b";
 const INFURA_TOKEN = Buffer.from(`${id}:${sercet}`).toString("base64");
 
 export const ipfs = create({
@@ -13,20 +13,14 @@ export const ipfs = create({
     authorization: "Basic " + INFURA_TOKEN,
   },
 });
-const uploadImageToIPFS = async (
-  imageBase64: any,
-
-): Promise<{ url: string,cid:any }> => {
-  var base64EncodedImageString = imageBase64.replace(
-    /^data:image\/\w+;base64,/,
-    ""
-  );
-  const cidObj = await ipfs.add(base64EncodedImageString);
-  console.log(cidObj)
+const uploadImageToIPFS = async (file:any) => {
+  const added = await ipfs.add(file, {
+    progress: (prog) => console.log(`received: ${prog}`),
+  });
+  let v1CID = added.cid.toV1()
   return {
-    url: `ipfs://${cidObj.path}`,
-    cid: cidObj
-  };
+    image_link: `https://ipfs.io/ipfs/${v1CID}`
+  }
 };
 
 module.exports = uploadImageToIPFS;
