@@ -1,5 +1,6 @@
-import React, { ReactElement, memo } from 'react'
+import React, { ReactElement } from 'react'
 import { TicketInfo } from '../../../../data/ticket_infos';
+import TicketList from '../../../Tickets/TicketList/TicketList';
 
 interface Props {
   tickets?: TicketInfo[];
@@ -11,8 +12,7 @@ const Favorited: React.FC<Props> = (props: Props): ReactElement => {
     <article className='mb-40 mt-10'>
       {props.tickets
         ? <>
-            {/* <TicketList tickets={props.tickets}/> */}
-            <div className='stat-null'>Coming soon!</div>
+            <TicketList tickets={props.tickets}/>
           </>
         : <div className='stat-null'>You haven’t bought any ticket yet.</div>
       }
@@ -20,4 +20,4 @@ const Favorited: React.FC<Props> = (props: Props): ReactElement => {
   )
 }
 
-export default memo(Favorited)
+export default Favorited

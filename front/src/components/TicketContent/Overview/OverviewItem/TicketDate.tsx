@@ -1,4 +1,4 @@
-import React, { ReactElement, memo } from 'react'
+import React, { ReactElement } from 'react'
 import { formatDateShort } from '../../../../util/FormatDateShort'
 
 import './OverviewItem.css';
@@ -23,4 +23,4 @@ const TicketDate: React.FC<Props> = (props:Props): ReactElement => {
   )
 }
 
-export default memo(TicketDate)
+export default TicketDate

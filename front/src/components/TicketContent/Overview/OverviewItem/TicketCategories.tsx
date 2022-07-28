@@ -1,14 +1,14 @@
-import React, { ReactElement, memo } from 'react'
+import React, { ReactElement } from 'react'
 
 import './OverviewItem.css'
-import {toTitleCase} from '../../../../util/FormatStringToTitle'
+import { Category } from '../../../../data/categories';
 
 interface Props {
   categories: [{
-    category: {
+    eventCategory: {
       id: number;
       name: string;
-    };
+  };
   }],
   isFull?: boolean,
 }
@@ -16,32 +16,30 @@ interface Props {
 const TicketCategories: React.FC<Props> = (props: Props): ReactElement => {
   return (
     <>
-      {props.categories && props.categories.length > 0 && 
-        <div>
-          {props.isFull
-          ? <>
-            {props.categories.map(category => (
-              <div key={category.category.id} className='ticket-category mr-1 my-1'
-              >
-                {toTitleCase(category.category.name)}
-              </div>
-            ))}
-            </>
-          : <>
+      <div>
+        {props.isFull
+        ? <>
+          {props.categories.map(category => (
+            <div key={category.eventCategory.id} className='ticket-category mr-1 my-1'
+            >
+              {category.eventCategory.name}
+            </div>
+          ))}
+          </>
+        : <>
+            <div className='ticket-category mr-1 my-1'>
+              {props.categories[0].eventCategory.name}
+            </div>
+            {props.categories.length > 1 &&
               <div className='ticket-category mr-1 my-1'>
-                {toTitleCase(props.categories[0].category.name)}
+                +{props.categories.length - 1}
               </div>
-              {props.categories.length > 1 &&
-                <div className='ticket-category mr-1 my-1'>
-                  +{props.categories.length - 1}
-                </div>
-              }
-            </>
-          }
-        </div>
-      }
+            }
+          </>
+        }
+      </div>
     </>
   )
 }
 
-export default memo(TicketCategories)
+export default TicketCategories

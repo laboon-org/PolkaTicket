@@ -1,10 +1,9 @@
 import React from 'react'
-import { TicketInterface } from '../../../api/queries';
 import { Ticket } from '../../../data/tickets'
 import BoughtTicketsItem from './BoughtTicketsItem';
 
 interface Props {
-  tickets: TicketInterface[];
+  tickets: Ticket[];
 }
 
 const BoughtTickets: React.FC<Props> = ({tickets}: Props): React.ReactElement => {
@@ -18,7 +17,7 @@ const BoughtTickets: React.FC<Props> = ({tickets}: Props): React.ReactElement =>
           </div>
         ))
       :
-        <div>Error: Cannot load tickets!</div>
+        <div>Error 404!</div>
       }
     </>
   )

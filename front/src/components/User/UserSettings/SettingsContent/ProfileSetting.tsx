@@ -1,27 +1,16 @@
-import React, { useContext } from 'react'
-import { useParams } from 'react-router-dom';
-import { AccountContext, UserInfo } from '../../../../context/AccountData'
-import ErrorPage from '../../../Error/Error';
+import React from 'react'
 import SubHeader from '../../../SubHeader/SubHeader'
-import UserInfomation from '../../UserInfo/UserInfo'
-
+import UserInfo from '../../UserInfo/UserInfo'
 
 const ProfileSetting = () => {
-  const {userName} = useParams();
-  const userData = useContext(AccountContext)
-
-  // const userData = localStorage.getItem('user');
-  const user: UserInfo = userData && userData.account;
-
-  if (user.user !== userName) return <ErrorPage />
   return (
     <div className='wrap border-x-only'>
       <div className='container relative'>
         <section>
-          <SubHeader pageName='My Profile' rootURL={`/user/${userName}/settings`} />
+          <SubHeader pageName='My Profile' rootURL='/user/settings' />
         </section>
         <section className='flex flex-col items-center mt-10'>
-          <UserInfomation user={user}/>
+          <UserInfo />
         </section>
         <section className='flex flex-col items-center mt-20'>
           <div>

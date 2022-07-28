@@ -15,17 +15,16 @@ interface Props {
 
 const TicketTypeModal: React.FC<Props> = ({selectedType, setActiveTypeModal, setSelectedType}: Props): React.ReactElement => {
   const checkType: SelectTypeT = selectedType.id ? selectedType : {id: ticketTypes[0].id, name: ticketTypes[0].type};
-  const [currentType, setCurrentType] = useState<SelectTypeT>(checkType)
-
+  const [currentType, setCurrentType] = useState<SelectTypeT>(checkType);
   const confirmModal = (): void => {
+    console.log(currentType);
+    
     setSelectedType(currentType)
     setActiveTypeModal(false);
   }
-  
   const cancelModal = (): void => {
     setActiveTypeModal(false);
   }
-
   return (
     <section className='modal-wrap'>
       <div className='modal-bg' onClick={cancelModal}></div>

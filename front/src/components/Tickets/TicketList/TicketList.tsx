@@ -1,26 +1,27 @@
-import React from 'react'
-import { TicketInterface } from '../../../api/queries';
-import { Ticket } from '../../../data/tickets'
+import React, { ReactElement } from 'react'
+
+import { TicketInfo } from '../../../data/ticket_infos';
 import TicketListItem from './TicketListItem';
 
 interface Props {
-  tickets: TicketInterface[];
+  tickets?: TicketInfo[];
+  hideSum?: boolean;
+  hideFavorite?: boolean;
+  isIssuer?: boolean;
 }
 
-const TicketList: React.FC<Props> = ({tickets}: Props): React.ReactElement => {
+const TicketList: React.FC<Props> = (props: Props): ReactElement => {
   return (
-    <>
-      {tickets
-      ?
-        tickets.map(ticket => (
-          <div key={ticket.id}>
-            <TicketListItem ticket={ticket} />
-          </div>
-        ))
-      :
-        <div>Error: Cannot load tickets!</div>
-      }
-    </>
+    <div id="ticket-list-wrap">
+      {props.tickets 
+      ? props.tickets.map(ticket => (
+        <div key={ticket.id}>
+          <TicketListItem ticket={ticket} hideSum={props.hideSum} hideFavorite={props.hideFavorite} isIssuer={props.isIssuer}/>
+        </div>
+      ))
+      : <div>Error 404!</div>
+    }
+    </div>
   )
 }
 

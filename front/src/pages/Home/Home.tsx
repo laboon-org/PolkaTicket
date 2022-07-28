@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 
 import Header from '../../components/Header/Header';
@@ -6,13 +6,24 @@ import Content from '../../components/HomeContent/HomeContent';
 import Footer from '../../components/Footer/Footer';
 import ModalUser from '../../components/Header/ModalUser';
 import ModalWallet from '../../components/Header/ModalWallet';
+import Loading from '../../components/Loading/Loading';
+import ErrorPage from '../../components/Error/Error';
+
+import { useQuery, gql } from '@apollo/client';
+import {TicketCollection, getTicketCollections } from '../../api/queries';
 
 import './Home.css'
 
 const Home: React.FC = (): React.ReactElement => {
   const [isWalletModal, setWalletModal] = useState<boolean>(false);
   const [isUserModal, setUserModal] = useState<boolean>(false);
-
+  const { loading, error, data } = useQuery(getTicketCollections);
+  
+  if (loading) return <Loading />;
+  if (error) {
+    console.log(error);
+    return <ErrorPage />
+  }
 
   return (
     <div className='wrap border-x-only relative'>
@@ -30,9 +41,9 @@ const Home: React.FC = (): React.ReactElement => {
       </section>
       <div className='container relative'>
         <section id="content" className='relative mt-20 mb-32'>
-          <Content type='Categories' />
-          <Content type='Newest Event' />
-          <Content type='Expiring Soon' />
+          <Content type='Categories' ticketCollections={data.ticketCollections}/>
+          <Content type='Newest Event' ticketCollections={data.ticketCollections}/>
+          <Content type='Expiring Soon' ticketCollections={data.ticketCollections}/>
         </section>
       </div>
       <section 

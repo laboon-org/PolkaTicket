@@ -1,5 +1,5 @@
 import moment from 'moment';
-import React, { useContext, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import './IssuingTicket.css';
 import CompleteModal from './IssuingTicketModal/CompleteModal';
@@ -7,29 +7,28 @@ import IssuingStep1 from './IssuingTicketSteps/IssuingStep1';
 import IssuingStep2 from './IssuingTicketSteps/IssuingStep2';
 import IssuingStep3 from './IssuingTicketSteps/IssuingStep3';
 import { CreateTicket } from '../../api/mutation/createTicket';
-import { AccountContext } from '../../context/AccountData';
-
 interface Props {
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const IssuingStepContent: React.FC<Props> = ({ step, setStep }: Props): React.ReactElement => {
-  const userData = useContext(AccountContext)
 
+
+const IssuingStepContent: React.FC<Props> = ({ step, setStep }: Props): React.ReactElement => {
   const submitData = useRef<CreateTicket>({
     create_at: moment().format('YYYY/MM/DD'),
     event: 0,
-    owner_address: userData.account.user,
+    owner_address: 'dev_test_wallet',
     supply: 0,
     ticket_type: 0,
     type: 1,
-    user_id: Number(userData.account.id),
+    user_id: 0,
     approver: [],
-    price: '',
-    image_link: ''
+    price: ''
   })
+
   const [isComplete, setComplete] = useState<boolean>(false);
+
 
   return (
     <>
@@ -39,7 +38,7 @@ const IssuingStepContent: React.FC<Props> = ({ step, setStep }: Props): React.Re
       <article className='flex-1 flex w-full'>
         {/* Step 1 */}
         <div className={step === 1 ? 'flex flex-col flex-1' : 'hidden'}>
-          <IssuingStep1 setStep={setStep} submitData={submitData} />
+          <IssuingStep1 setStep={setStep} submitData={submitData}/>
         <button className='h20 w-20 fixed t-50 l-50'/>
 
         </div>

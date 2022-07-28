@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import { useNavigate, NavigateFunction } from 'react-router-dom';
 
 import {ImHome} from 'react-icons/im'
@@ -8,22 +8,18 @@ import {FaUser} from 'react-icons/fa'
 import { BsFillCalendarPlusFill } from 'react-icons/bs';
 
 import './Footer.css'
-import { AccountContext } from '../../context/AccountData';
 
 interface Props {
   activePage?: string;
 }
 
 const Footer: React.FC<Props> = (props: Props): ReactElement => {
-  const userData = useContext(AccountContext)
-  // const userData = localStorage.getItem('user');
-  // const user = userData && JSON.parse(userData);
   const navigate: NavigateFunction = useNavigate();
   const handleNavigate = (url: string): void => {
-    navigate(url);
+    navigate(url, {replace: true});
   }
   return (
-    <section className='flex justify-between items-center'>
+    <section className='flex justify-around items-center'>
       <article id="home">
         <button 
           className={props.activePage === 'home' ? 'footer-btn active' : 'footer-btn'}
@@ -65,8 +61,7 @@ const Footer: React.FC<Props> = (props: Props): ReactElement => {
       <article id="profile">
         <button 
           className={props.activePage === 'user' ? 'footer-btn active' : 'footer-btn'}
-          // re
-          onClick={() => handleNavigate(`/user/${userData.account?.user}`)}
+          onClick={() => handleNavigate('/user')}
         >
           <i><FaUser /></i>
           <p>Account</p>

@@ -1,17 +1,16 @@
-import React, { ReactElement, memo } from 'react'
+import React, { ReactElement } from 'react'
 import { Ticket } from '../../../../data/tickets';
 import tickets from '../../../../data/tickets';
 import BoughtTickets from '../../../Tickets/BoughtTicketList/BoughtTickets';
-import { TicketInterface } from '../../../../api/queries';
 
 interface Props {
-  tickets?: TicketInterface[];
+  tickets?: Ticket[];
 }
 
-const Bought: React.FC<Props> = ({tickets}: Props): ReactElement => {
+const Bought: React.FC<Props> = (props: Props): ReactElement => {
   return (
     <article className='mb-40 mt-10'>
-      {tickets && tickets.length > 0
+      {props.tickets
         ? <>
             <BoughtTickets tickets={tickets}/>
           </>
@@ -21,4 +20,4 @@ const Bought: React.FC<Props> = ({tickets}: Props): ReactElement => {
   )
 }
 
-export default memo(Bought)
+export default Bought

@@ -10,7 +10,6 @@ export interface CreateTicket {
   user_id: number
   approver: string[]
   price: string
-  image_link: string
 }
 
 export const CREATE_TICKET = gql`
@@ -24,7 +23,6 @@ export const CREATE_TICKET = gql`
       $user_id: Int!
       $approver: jsonb 
       $price: float8!
-      $image_link: String!
       ){
       createTicket(
         create_at: $create_at,
@@ -35,8 +33,7 @@ export const CREATE_TICKET = gql`
         type: $type,
         user_id: $user_id,
         approver: $approver,
-        price:$price,
-        image_link: $image_link
+        price:$price
       ){
       data
     }

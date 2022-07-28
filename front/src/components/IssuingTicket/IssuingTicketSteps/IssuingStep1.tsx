@@ -1,39 +1,25 @@
 import React, { MutableRefObject, useState } from 'react'
 import { CreateTicket } from '../../../api/mutation/createTicket';
 import SelectEventModal from '../IssuingTicketModal/SelectEventModal';
-import { eventCategory } from '../../../api/queries';
-import { useLocation } from 'react-router-dom';
-
 interface Props {
   setStep: React.Dispatch<React.SetStateAction<number>>;
   submitData: MutableRefObject<CreateTicket>
 }
-
-interface LocationState {
-  event: string,
-  id: number,
-  isExistData: true
-}
-
 interface SelectedEvent {
   id: number,
   name: string
 }
 
 const IssuingStep1: React.FC<Props> = ({ setStep, submitData }: Props): React.ReactElement => {
-  const location = useLocation();
-  const locationState = location.state as LocationState;
-  const defaultData = locationState && locationState.isExistData ? { id: locationState.id, name: locationState.event } : { id: 0, name: '' }
-
   const [isFirstTime, setFirstTime] = useState<boolean>(true);
   const [activeEventModal, setActiveEventModal] = useState<boolean>(false);
 
-  const [selectedEvent, setSelectedEvent] = useState<SelectedEvent>(defaultData);
+  const [selectedEvent, setSelectedEvent] = useState<SelectedEvent>({ id: 0, name: '' });
 
   const checkEmptyInput = (): void => {
     isFirstTime && setFirstTime(false);
     if (selectedEvent.id) {
-      submitData.current = { ...submitData.current, event: selectedEvent.id }
+      submitData.current = {...submitData.current, event: selectedEvent.id}
       setStep(step => step + 1);
     }
   }
@@ -56,7 +42,6 @@ const IssuingStep1: React.FC<Props> = ({ setStep, submitData }: Props): React.Re
             placeholder='Select event'
             value={selectedEvent.name}
             onClick={() => setActiveEventModal(true)}
-            readOnly
           />
         </div>
         <div className={`mt-2 ${!isFirstTime && !selectedEvent.name ? 'block' : 'hidden'}`}>
@@ -64,7 +49,7 @@ const IssuingStep1: React.FC<Props> = ({ setStep, submitData }: Props): React.Re
         </div>
       </article>
       <article className='footer-full-w-btn w-full mt-10 mb-32'>
-        <button className='primary-btn' onClick={(checkEmptyInput)}>
+        <button className='primary-btn' onClick={checkEmptyInput}>
           Continue
         </button>
       </article>

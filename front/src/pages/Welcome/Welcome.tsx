@@ -1,12 +1,11 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 
 import './Welcome.css'
 import IMG_LOGO from '../../assets/images/polka.png'
-import { AccountContext } from '../../context/AccountData';
-import LoadingField from '../../components/LoadingField/LoadingField';
+
 const Welcome: React.FC = (): ReactElement => {
-  const account = useContext(AccountContext)
+
   return (
     <div className='welcome-bg min-h-screen relative bg-no-repeat	bg-cover bg-center'>
       <div className="absolute inset-0 bg-black opacity-40 z-0">
@@ -38,17 +37,11 @@ const Welcome: React.FC = (): ReactElement => {
         {/* Next button */}
         <div id="next-btn" className='w-full mt-12 mb-20'>
           <Link
-            to={account.account?.fetch ? '/home' : '/login'}
-            className={`${ account.checked && 'disable-button'} text-white bg-primaryColor block w-full text-3xl rounded-2xl py-4
-            cursor-pointer font-semibold hover:bg-white hover:text-primaryColor text-center`}
+            to="/login"
+            className='text-white bg-primaryColor block w-full text-3xl rounded-2xl py-4
+            cursor-pointer font-semibold hover:bg-white hover:text-primaryColor text-center'
           >
-            {
-              account.checked ?
-                <LoadingField />
-                :
-                'NEXT'
-            }
-
+            NEXT
           </Link>
         </div>
       </div>

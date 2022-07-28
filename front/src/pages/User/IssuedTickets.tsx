@@ -1,68 +1,38 @@
-import React, { useContext, useState } from 'react'
-import { useLocation, useParams } from 'react-router-dom';
+import React from 'react'
+import { useParams } from 'react-router-dom';
 import Footer from '../../components/Footer/Footer';
 import SubHeader from '../../components/SubHeader/SubHeader';
+import UserInfo from '../../components/User/UserInfo/UserInfo';
 import IssuedTicketsSummary from '../../components/User/IssuedTickets/IssuedTicketsSummary';
-import UserInfomation from '../../components/User/UserInfo/UserInfo';
 
-import { UserInfo } from '../../context/CurrentUser';
-import { useQuery } from '@apollo/client';
-import { EventType, getEventByIDAndOwner } from '../../api/queries';
-import Loading from '../../components/Loading/Loading';
-import ErrorPage from '../../components/Error/Error';
-import { AccountContext } from '../../context/AccountData';
+import events, { Event } from '../../data/events';
+import tickets, { TicketInfo } from '../../data/ticket_infos';
+import TicketList from '../../components/Tickets/TicketList/TicketList';
 
-
-const IssuedTickets: React.FC = (): React.ReactElement => {
-  const userData = useContext(AccountContext)
-
-  const [specificEvent, setSpecificEvent] = useState<EventType[]>([])
-  const {id, userName} = useParams();
-  // const userData = localStorage.getItem('user');
-  // const user = userData && JSON.parse(userData)
-
-  const { loading, error, data } = useQuery(getEventByIDAndOwner, {
-    variables: {
-      eventID: (id && parseInt(id)),
-      userName: userName,
-    },
-    skip: id === undefined,
-    onCompleted: (data) => {
-      setSpecificEvent(data.events);
-    },
-    fetchPolicy: "no-cache"
-  });
-  if (loading) return <Loading />;
-
-  if (error) {
-    console.log(error);
-    return <ErrorPage />
-  }
-
-  if (data) {
-    console.log("data: ", data);
-  }
-  
+const IssuedTickets = () => {
+  const {id} = useParams();
+  const event: Event | undefined = id ? events.find(event => event.id === parseInt(id)) : undefined;
+  const filterTickets: TicketInfo[] = tickets.filter(ticket => ticket.event === event);
   return (
     <>
-      {specificEvent.length > 0
+      {event
       ?
       <>
         <div className='wrap border-x-only relative'>
           <div className='container relative'>
             {/* Header */}
-            <SubHeader pageName={`Issued tickets of ${specificEvent[0].name}` } rootURL={'/user'}/>
+            <SubHeader pageName={`Issued tickets of ${event.name}` } rootURL={'/user'}/>
             {/* User Info */}
             <section id="user-info" className='flex flex-col items-center mt-10'>
-              <UserInfomation user={userData.account}/>
+              <UserInfo />
             </section>
             {/* Issued event summary */}
             <section className='mt-10'> 
               <IssuedTicketsSummary />
             </section>
             <section className=' mt-10 mb-32'>
-              <p className='font-semibold text-lg'>Avaiable: {specificEvent[0].ticketToken.length}</p>
-              
+              <p className='font-semibold text-lg'>Avaiable: 2</p>
+              <TicketList tickets={filterTickets} hideFavorite={true} isIssuer={true} />
             </section>
             <section 
               id="footer" 
@@ -77,7 +47,7 @@ const IssuedTickets: React.FC = (): React.ReactElement => {
         </div>
       </>
       :
-      <ErrorPage /> 
+      <div>Error 404!</div>  
       }
     </>
   )

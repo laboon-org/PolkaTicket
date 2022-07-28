@@ -2,8 +2,6 @@ import React, { MutableRefObject, useState } from 'react'
 import { FaCamera } from 'react-icons/fa'
 import { RiTicketFill } from 'react-icons/ri'
 import { CreateTicket } from '../../../api/mutation/createTicket';
-import UploadImage from '../../../util/UploadImage';
-import LoadingField from '../../LoadingField/LoadingField';
 import TicketTypeModal from '../IssuingTicketModal/TicketTypeModal';
 interface SelectTypeT {
   id: number,
@@ -13,34 +11,30 @@ interface Props {
   setStep: React.Dispatch<React.SetStateAction<number>>;
   submitData: MutableRefObject<CreateTicket>
 }
-
 const IssuingStep2: React.FC<Props> = ({ setStep, submitData }: Props): React.ReactElement => {
   const [isFirstTime, setFirstTime] = useState<boolean>(true);
   const [activeTypeModal, setActiveTypeModal] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
   const [selectedType, setSelectedType] = useState<SelectTypeT>({ id: 0, name: '' });
   const [selectedPrice, setSelectedPrice] = useState<string>('');
   const [selectedAmount, setSelectedAmount] = useState<string>('');
-  const [selectedImgURL, setSelectedImgURL] = useState<File | null>(null);
+  const [selectedImgURL, setSelectedImgURL] = useState<string>();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (e.target.files) {
-      setSelectedImgURL(e.target.files[0]);
+      const objectUrl: string = URL.createObjectURL(e.target.files[0])
+      setSelectedImgURL(objectUrl);
     }
   }
 
-  const checkEmptyInput = async () => {
+  const checkEmptyInput = (): void => {
     isFirstTime && setFirstTime(false);
     if (selectedType.id && selectedPrice && selectedAmount && selectedImgURL) {
-      setLoading(true)
-      const img = await UploadImage(selectedImgURL)
-      setLoading(false)
       submitData.current = {
         ...submitData.current,
         ticket_type: selectedType.id,
         price: selectedPrice,
         supply: Number(selectedAmount),
-        image_link: img
+
       }
       setStep(step => step + 1);
     }
@@ -71,7 +65,7 @@ const IssuingStep2: React.FC<Props> = ({ setStep, submitData }: Props): React.Re
             {selectedImgURL
               ?
               <img
-                src={URL.createObjectURL(selectedImgURL)} alt="Selected Cover"
+                src={selectedImgURL} alt="Selected Cover"
                 className='object-cover w-full h-full object-center'
               />
               :
@@ -129,7 +123,7 @@ const IssuingStep2: React.FC<Props> = ({ setStep, submitData }: Props): React.Re
             value={selectedPrice}
             onChange={(e) => setSelectedPrice(e.target.value)}
           />
-          <p>DEV</p>
+          <p>XTZ</p>
         </div>
         <div className={`mt-2 ${!isFirstTime && !selectedPrice ? 'block' : 'hidden'}`}>
           <p className='text-red-600'>*Please fill in the information</p>
@@ -156,10 +150,8 @@ const IssuingStep2: React.FC<Props> = ({ setStep, submitData }: Props): React.Re
         </div>
       </article>
       <article className='footer-full-w-btn w-full mt-10 mb-32'>
-        <button className={`primary-btn ${loading && 'disable-button'}`} onClick={checkEmptyInput}>
-          {
-            loading ? <LoadingField/> : 'Continue'
-          }
+        <button className='primary-btn' onClick={checkEmptyInput}>
+          Continue
         </button>
       </article>
     </>

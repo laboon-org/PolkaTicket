@@ -1,98 +1,67 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { useNavigate, NavigateFunction } from 'react-router-dom';
-import { ApolloError, useLazyQuery, useQuery } from '@apollo/client';
 
 import CategorySlider from '../CategorySlider/CategorySlider';
-import EventSlider from '../ActiveEvent/EventSlider/EventSlider';
+import TicketSlider from '../Tickets/TicketSlider/TicketSlider';
 import ticketsInfo from '../../data/ticket_infos';
-import { EventType, getAvailableEvents, getAvailableEventsByCate, getNewestEvents } from '../../api/queries';
+import { TicketCollection } from '../../api/queries';
 import ErrorPage from '../Error/Error';
 
 interface Props {
   type: string;
+  ticketCollections: TicketCollection[] | undefined;
 }
 
 const Content: React.FC<Props> = (props: Props): ReactElement => {
-  const [categoryID, setCategoryID] = useState<number>(-1);
-  const [events, setEvents] = useState<EventType[]>([]);
-  const [errorState, setErrorState] = useState<ApolloError | undefined>();
+  console.log(props.ticketCollections)
   const navigate: NavigateFunction = useNavigate();
-  const handleNavigate = (type: string): void => {
-    navigate(`/events/${type.toLowerCase().replace(/\s/g, "_")}`)
+  const handleNavigate = (type: string):void => {
+    navigate(`/tickets/${type.toLowerCase().replace(/\s/g, "_")}`, {state: {type: props.type}})
   }
 
-  const [loadAllEvents, {loading}] = useLazyQuery(getAvailableEvents, {
-    onCompleted: (data) => setEvents(data.events),
-    onError: (error) => setErrorState(error),
-    fetchPolicy: 'no-cache',
-  });
-  
-  const [loadEventsByCate, {loading: loading2}] = useLazyQuery(getAvailableEventsByCate, {
-    variables: {id: categoryID},
-    onCompleted: (data) => setEvents(data.events),
-    onError: (error) => setErrorState(error),
-    fetchPolicy: 'no-cache',
-  });
-
-  const [loadNewestEvents, {loading: loading3}] = useLazyQuery(getNewestEvents, {
-    onCompleted: (data) => setEvents(data.events),
-    onError: (error) => setErrorState(error),
-    fetchPolicy: 'no-cache',
-  });
-
-  const [loadExpiringEvents, {loading: loading4}] = useLazyQuery(getNewestEvents, {
-    onCompleted: (data) => setEvents(data.events),
-    onError: (error) => setErrorState(error),
-    fetchPolicy: 'no-cache',
-  });
-  
-  useEffect(() => {
-    if (props.type === "Categories") {
-      if (categoryID === -1) {
-        loadAllEvents();
-      }
-      else {
-        loadEventsByCate({variables: {id: categoryID}});
-      }
-    }
-    else if (props.type === "Newest Event") {
-      loadNewestEvents();
-    }
-    else if (props.type === "Expiring Soon") {
-      loadExpiringEvents();
-    }
-  }, [props.type, categoryID])
-
-
-  if (errorState) {
-    console.log(errorState);
-    return <p>Error: Cannot load data!</p>
-  }
-
-  
-  
   return (
     <>
-      <section id="home-content" className='mt-8'>
-        <article className='w-full flex justify-between'>
-          <p className='font-semibold text-lg'>{props.type}</p>
-          <button 
-            className='text-primaryColor opacity-80 hover:opacity-100 focus:opacity-100'
-            onClick={() => handleNavigate(props.type)}
-          >
-            See all
-          </button>
-        </article>
-        {/* Categories slider */}
-        {props.type === "Categories" && (
-          <article className='mt-4'>
-            <CategorySlider categoryID={categoryID} setCategoryID={setCategoryID} />
+      {props.ticketCollections &&
+        <section id="home-content" className='mt-8'>
+          <article className='w-full flex justify-between'>
+            <p className='font-semibold text-lg'>{props.type}</p>
+            <button 
+              className='text-primaryColor opacity-80 hover:opacity-100 focus:opacity-100'
+              onClick={() => handleNavigate(props.type)}
+            >
+              See all
+            </button>
           </article>
-          )}
-            <article id="tickets" className='mt-4'>
-              <EventSlider events={events} loading={loading || loading2 ||loading3 || loading4}/>
-            </article>
-      </section>
+          {/* Categories slider */}
+          {props.type === "Categories" 
+          ? (
+            <>
+              <article className='mt-4'>
+                <CategorySlider />
+              </article>
+              <article id="tickets" className='mt-4'>
+                <TicketSlider ticketCollections={props.ticketCollections}/>
+              </article>
+            </>
+            )
+          : props.type === "Newest Event" 
+            ? (
+              <article id="tickets" className='mt-4'>
+                <TicketSlider ticketCollections={props.ticketCollections}/>
+              </article>
+              )
+            : props.type === "Expiring Soon" 
+              ? (
+                <article id="tickets" className='mt-4'>
+                  <TicketSlider ticketCollections={props.ticketCollections}/>
+                </article>
+                )
+              :
+                <ErrorPage /> }
+          
+        </section>
+      }
+      
     </>
   )
 }

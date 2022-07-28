@@ -1,24 +1,19 @@
-import React, { MutableRefObject, useContext, useEffect, useState } from 'react'
+import React, { MutableRefObject, useState } from 'react'
 import { BsPlusCircleFill } from 'react-icons/bs';
 import { MdRemoveCircle } from 'react-icons/md';
 
 import { useMutation } from '@apollo/client';
 import { CreateTicket, CREATE_TICKET } from '../../../api/mutation/createTicket';
-import LoadingField from '../../LoadingField/LoadingField';
-import { AccountContext } from '../../../context/AccountData';
-
 interface Props {
   setComplete: React.Dispatch<React.SetStateAction<boolean>>
   submitData: MutableRefObject<CreateTicket>
 }
 
 const IssuingStep3: React.FC<Props> = ({ setComplete, submitData }: Props) => {
-  const userData = useContext(AccountContext)
-
   const [activeApproval, setActiveApproval] = useState<boolean>(false);
   const [approvals, setApprovals] = useState<string[]>([]);
   const [approvalInput, setApprovalInput] = useState<string>('');
-  const [createTicket, { loading }] = useMutation(CREATE_TICKET);
+  const [createTicket, { data, loading, error }] = useMutation(CREATE_TICKET);
 
   const handleAddApproval = () => {
     approvalInput && setApprovals([...approvals, approvalInput]);
@@ -26,15 +21,9 @@ const IssuingStep3: React.FC<Props> = ({ setComplete, submitData }: Props) => {
   }
   
   const submit = () => {
-    console.log(submitData.current);
-    
     createTicket({
       variables: {
-        ...submitData.current,
-        approver: approvals
-      },
-      onCompleted: ()=>{
-        setComplete(true)
+        ...submitData.current
       }
     })
   }
@@ -48,7 +37,7 @@ const IssuingStep3: React.FC<Props> = ({ setComplete, submitData }: Props) => {
         <div className='issuing-input text-gray-400 mt-2'>
           <input
             type="input" readOnly
-            value={userData.account.user}
+            value="0x0da46c783f8cxv85x6z5cxhxv12382"
           />
         </div>
       </article>
@@ -96,10 +85,8 @@ const IssuingStep3: React.FC<Props> = ({ setComplete, submitData }: Props) => {
         )}
       </article>
       <article className='footer-full-w-btn w-full mt-10 mb-32'>
-        <button className={`primary-btn ${loading && 'disable-button'}`} onClick={submit}>
-          {
-            loading ? <LoadingField/> : 'Issuing Ticket'
-          }
+        <button className='primary-btn' onClick={submit}>
+          Issuing Ticket
         </button>
       </article>
     </>

@@ -1,4 +1,4 @@
-import React, { ReactElement, memo, useContext } from 'react';
+import React, { ReactElement } from 'react';
 import { useNavigate, NavigateFunction } from 'react-router-dom';
 import { RiWallet3Fill } from 'react-icons/ri'
 import { RiQrScan2Line } from 'react-icons/ri'
@@ -9,23 +9,18 @@ import IMG_LOGO from '../../assets/images/polka.png'
 import IMG_AVATAR from '../../assets/images/user-avatar.png';
 
 import './Header.css'
-// import { useCurrentUser, UserInfo } from '../../context/CurrentUser';
-import { AccountContext, UserInfo } from '../../context/AccountData';
 
 
 interface Props {
   isUserPage?: boolean;
-  setWalletModal?: React.Dispatch<React.SetStateAction<boolean>>;
-  setUserModal?: React.Dispatch<React.SetStateAction<boolean>>;
+  setWalletModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setUserModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Header: React.FC<Props> = (props: Props): ReactElement => { 
-  const userData = useContext(AccountContext)
-  // const userData = localStorage.getItem('user');
-  // const user: UserInfo = userData && JSON.parse(userData);
   const navigate: NavigateFunction = useNavigate();
-  const handleNavigate = (url: string): void => {
-    navigate(url);
+  const handleNavigateToUserSetting = (): void => {
+    navigate('settings');
   }
   return (
     <div className='home-header flex justify-between h-8 items-center'>
@@ -33,7 +28,7 @@ const Header: React.FC<Props> = (props: Props): ReactElement => {
         <article id="logo">
           <button className='flex items-center'>
             <img src={IMG_LOGO} alt="Polka Ticket" className='h-12 w-12' />
-            <p className='text-lg text-primaryColor font-bold select-none leading-5 w-1/3 ml-2 text-left'>
+            <p className='text-lg text-primaryColor font-bold select-none leading-5 w-1/3 ml-2'>
               POLKA TICKET
             </p>
           </button>
@@ -43,7 +38,7 @@ const Header: React.FC<Props> = (props: Props): ReactElement => {
       ? 
       <div className="header-right-items">
         <article id="header-user-setting" className='h-5/6'>
-          <button onClick={() => handleNavigate("settings")}>
+          <button onClick={handleNavigateToUserSetting}>
             <i className='text-primaryColor text-xl'><IoSettingsSharp /></i>
           </button>
         </article>
@@ -51,21 +46,21 @@ const Header: React.FC<Props> = (props: Props): ReactElement => {
       :
       <div className="header-right-items">
         <article>
-          <button className='header-scan' onClick={() => handleNavigate("/scan")}>
+          <button className='header-scan'>
             <i><RiQrScan2Line /></i>
           </button>
         </article>
         <article>
           <button 
             className='header-wallet-overview'
-            onClick={() => props.setWalletModal && props.setWalletModal(true)}
+            onClick={() => props.setWalletModal(true)}
           >
             <i><RiWallet3Fill /></i>
           </button>
         </article>
         <article id="header-user-overview">
-          <button className='user-avt-btn' onClick={() => props.setUserModal && props.setUserModal(true)}>
-            <img src={userData.account && userData.account.img} alt="User"/>
+          <button className='user-avt-btn' onClick={() => props.setUserModal(true)}>
+            <img src={IMG_AVATAR} alt="User"/>
           </button>
         </article>
       </div>
@@ -74,4 +69,4 @@ const Header: React.FC<Props> = (props: Props): ReactElement => {
   )
 }
 
-export default memo(Header)
+export default Header

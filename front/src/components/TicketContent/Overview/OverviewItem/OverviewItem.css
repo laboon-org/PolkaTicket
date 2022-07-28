@@ -7,20 +7,13 @@
 
 .ticket-sum {
   @apply flex items-center mt-4;
-  max-height: 40px;
 
   i {
     @apply text-lg;
-    margin-top: 1px;
   }
 
   p {
-    @apply text-sm font-semibold ml-2 leading-5;
-  }
-  .ticket-sum-location {
-    max-height: 40px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    @apply text-sm font-semibold ml-2 leading-4;
   }
 }
 

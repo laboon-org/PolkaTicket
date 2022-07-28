@@ -31,8 +31,8 @@ const ErrorPage: React.FC = (): React.ReactElement => {
           <img src={IMG_ERROR} alt="404 Not Found!" className='object-cover'/>
         </div>
         <div className='text-center mt-10 text-primaryColor '>
-          <p className='font-bold' style={{fontSize: 60}}>OOPS!</p>
-          <small className='font-semibold text-xl'>SOMETHING HAS GONE WRONG...</small>
+          <p className='font-bold' style={{fontSize: 60}}>OOPS...</p>
+          <small className='font-semibold text-xl'>SOMETHING HAS GONE WRONG</small>
         </div>
         <div className='mt-12 text-center'>
           <p className='text-lg'>

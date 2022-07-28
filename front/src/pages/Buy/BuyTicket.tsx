@@ -1,39 +1,29 @@
-import React, { useState } from 'react'
-import { NavigateFunction, useLocation, useNavigate, useParams } from 'react-router-dom'
+import React from 'react'
+import { NavigateFunction, useNavigate, useParams } from 'react-router-dom'
 
 
 import './BuyTicket.css'
 
 import SubHeader from '../../components/SubHeader/SubHeader'
-import TicketList from '../../components/ActiveEvent/EventList/EventList';
+import TicketList from '../../components/Tickets/TicketList/TicketList';
 import BuyTicketContent from '../../components/BuyContent/BuyTicketContent';
 
 import tickets from '../../data/ticket_infos';
 import { TicketInfo } from '../../data/ticket_infos';
-import { EventType } from '../../api/queries';
-import ErrorPage from '../../components/Error/Error';
-
-interface LocationState {
-  event: EventType
-}
 
 const BuyTicket: React.FC = ():React.ReactElement => {
-  const [totalPrice, setTotalPrice] = useState<number>(0);
-
-  const location = useLocation();
-  const locationState = location.state as LocationState;
-
   const isBought = true;
   const navigate: NavigateFunction = useNavigate();
   const handleNavigate = (): void => {
     if (isBought)
-      navigate('confirm', {state: {event: locationState.event, totalPrice: totalPrice}});
+      navigate('confirm');
     else
-      navigate('add_funds', {state: {event: locationState.event, totalPrice: totalPrice}});
+      navigate('add_funds');
   }
   const {id} = useParams();
+  const ticket: TicketInfo | undefined = id ? tickets.find(ticket => ticket.id === parseInt(id)) : undefined;
 
-  if (locationState) {
+  if (ticket) {
     return (
       <div className='wrap border-x-only relative'>
         <div className='container'>
@@ -45,8 +35,7 @@ const BuyTicket: React.FC = ():React.ReactElement => {
           <section className='mt-8 relative'>
             <div>
               <h6 className='buy-ticket-title'>Ticket</h6>
-              {/* <TicketList events={[locationState.event]} hideFavorite={true} /> */} 
-              {/*TODO: New ticket list */}
+              <TicketList tickets={[ticket]} hideFavorite={true} />
             </div>
             <div className='absolute inset-0 z-50'></div>
           </section>
@@ -55,7 +44,7 @@ const BuyTicket: React.FC = ():React.ReactElement => {
             className='fixed-comp sub-footer'
           >
             <div className='footer-full-w-btn w-11/12'>
-              <BuyTicketContent event={locationState.event} totalPrice={totalPrice} setTotalPrice={setTotalPrice}/>
+              <BuyTicketContent ticket={ticket}/>
               <button 
                 type='button'
                 className='primary-btn mt-6'
@@ -69,7 +58,7 @@ const BuyTicket: React.FC = ():React.ReactElement => {
       </div>
     )
   }
-  else return (<ErrorPage />)
+  else return (<div>Error 404!</div>)
 }
 
 export default BuyTicket

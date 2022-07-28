@@ -1,4 +1,4 @@
-import React, { ReactElement, memo } from 'react'
+import React, { ReactElement } from 'react'
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import {FaRegCalendarCheck} from 'react-icons/fa'
 import {GrLocation} from 'react-icons/gr'
@@ -9,10 +9,9 @@ import TicketTitle from '../../../TicketContent/Overview/OverviewItem/TicketTitl
 import TicketCategories from '../../../TicketContent/Overview/OverviewItem/TicketCategories';
 import { formatDateShort } from '../../../../util/FormatDateShort';
 import { Event } from '../../../../data/events';
-import { EventType } from '../../../../api/queries';
 
 interface Props {
-  events?: EventType[];
+  events?: Event[];
 }
 
 const Issued: React.FC<Props> = (props: Props): ReactElement => {
@@ -52,9 +51,9 @@ const Issued: React.FC<Props> = (props: Props): ReactElement => {
                 </div>
                 {/* Ticket Category */}
                 <div className='flex justify-between items-center mt-2'>
-                  <div className='text-xs font-semibold'>
-                  <TicketCategories categories={event.eventCategories} />  
-                  </div>
+                  {/* <div className='text-xs font-semibold'>
+                    <TicketCategories categories={event.category} />
+                  </div> */}
                 </div>
                 {/* Tickets Summary */}
                 <div className='flex flex-col flex-1 justify-end mb-2'>
@@ -62,8 +61,8 @@ const Issued: React.FC<Props> = (props: Props): ReactElement => {
                   <div className='issued-event-details'>
                     <i><FaRegCalendarCheck /></i>
                     <div>
-                      <p>Start: {formatDateShort(new Date(event.startDate))}, {new Date(event.startDate).getFullYear()}</p>
-                      <p>End: {formatDateShort(new Date(event.endDate))}, {new Date(event.endDate).getFullYear()}</p>
+                      <p>Start: {formatDateShort(event.start_date)}, {event.start_date.getFullYear()}</p>
+                      <p>End: {formatDateShort(event.end_date)}, {event.end_date.getFullYear()}</p>
                     </div>
                   </div>
                   {/* Location */}
@@ -83,4 +82,4 @@ const Issued: React.FC<Props> = (props: Props): ReactElement => {
   )
 }
 
-export default memo(Issued)
+export default Issued

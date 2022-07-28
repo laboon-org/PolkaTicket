@@ -13,7 +13,7 @@ interface Props {
 
 const TicketTimeModal: React.FC<Props> = ({selectedTime, setSelectedTime, setActiveTimeModal}: Props): React.ReactElement => {
   const checkTime: Date = selectedTime ? selectedTime : new Date();
-  const [timeValue, setTimeValue] = React.useState<Date | null>(checkTime);
+  const [timeValue, setTimeValue] = React.useState<Date>(checkTime);
   const confirmModal = (): void => {
     setSelectedTime(timeValue)
     setActiveTimeModal(false);
@@ -23,8 +23,8 @@ const TicketTimeModal: React.FC<Props> = ({selectedTime, setSelectedTime, setAct
   }
 
   useEffect(() => {
-    timeValue && setTimeValue(new Date(timeValue.setSeconds(0, 0)))
-  }, [timeValue])
+    setTimeValue((timeValue) => new Date(timeValue.setSeconds(0, 0)))
+  },[timeValue])
   
   return (
     <section className='modal-wrap'>
@@ -41,7 +41,7 @@ const TicketTimeModal: React.FC<Props> = ({selectedTime, setSelectedTime, setAct
             showToolbar={true}
             value={timeValue}
             onChange={(newValue) => {
-              setTimeValue(newValue);
+              newValue && setTimeValue(newValue);
             }}
             renderInput={(params) => <TextField {...params} />}
           />

@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react'
 
 import {TiPlus , TiMinus} from 'react-icons/ti'
-import { EventType } from '../../api/queries';
 import {TicketInfo} from '../../data/ticket_infos';
 
 
 interface Props {
-  event: EventType,
-  totalPrice: number,
-  setTotalPrice: React.Dispatch<React.SetStateAction<number>>,
+  ticket: TicketInfo;
 }
 
-const BuyTicketContent: React.FC<Props> = ({event, totalPrice, setTotalPrice}: Props): React.ReactElement => {
+const BuyTicketContent: React.FC<Props> = (props: Props): React.ReactElement => {
   const [amount, setAmount] = useState<number>(1);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
 
   const decreaseAmount = () => {
     if (amount > 1)
@@ -23,8 +21,8 @@ const BuyTicketContent: React.FC<Props> = ({event, totalPrice, setTotalPrice}: P
   }
 
   useEffect(() => {
-    setTotalPrice(10 * amount);
-  }, [amount, event]) 
+    setTotalPrice(props.ticket.ticketPrice * amount);
+  }, [amount, props.ticket.ticketPrice]) 
     
   return (
     <>
@@ -48,7 +46,7 @@ const BuyTicketContent: React.FC<Props> = ({event, totalPrice, setTotalPrice}: P
         <div className='flex justify-between'>
           <h6 className='buy-ticket-title'>Total</h6>
           <div className='text-right'>
-            <p className='text-primaryColor font-bold text-xl'>{totalPrice} DEV</p>
+            <p className='text-primaryColor font-bold text-xl'>{totalPrice} XTZ</p>
             <p className='text-gray-400'>(19,564213$)</p>
           </div>
         </div>
