@@ -8,16 +8,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var Router = require("router");
 const create_qr = require("./create_qr_code");
 var router = Router();
 var btoas = require('btoa');
 const QRCode = require('qrcode');
+const get_ticket = require("./get_ticket");
 router.post("/create", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { ticket_id } = req.body.input;
     try {
         let img = "";
-        const segs = btoas(ticket_id);
+        const ticket = yield get_ticket({ id: ticket_id });
+        console.log("testticket", ticket.data.TicketTokens[0]);
+        const output = {
+            ticket_id: ticket_id,
+            owner_address: ticket.data.TicketTokens[0].owner_address,
+            status: ticket.data.TicketTokens[0].status,
+            user_create_ticket: ticket.data.TicketTokens[0].Event.owner
+        };
+        const segs = btoas(JSON.stringify(output));
         let qr = yield QRCode.toDataURL(segs);
         const data = create_qr({ id: ticket_id, qrcode: qr });
         return res.json({

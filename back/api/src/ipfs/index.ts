@@ -19,7 +19,7 @@ const uploadImageToIPFS = async (file:any) => {
   });
   let v1CID = added.cid.toV1()
   return {
-    image_link: `https://ipfs.io/ipfs/${v1CID}`
+    image_link: `https://gateway.ipfs.io/ipfs/${v1CID}`
   }
 };
 

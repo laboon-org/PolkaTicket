@@ -1,26 +1,27 @@
 const fetch = require("../../fetch/index");
 require("dotenv").config();
 
-const get_event_now = `
+const update_ticket = `
 query ($id:Int!) {
     TicketTokens(where: {id: {_eq: $id}}) {
       approver
       event
       id
+      image_link
       owner_address
       price
       qrcode
       status
       ticket_type
       Event {
-        status
+        owner
+        end_date
       }
     }
   }
-  
 `;
 const execute = async (variables: Object) => {
-  const fetchResponse = await fetch(variables, get_event_now);
+  const fetchResponse = await fetch(variables, update_ticket);
   const data = await fetchResponse.json();
   return data;
 };

@@ -11,28 +11,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const fetch = require("../../fetch/index");
 require("dotenv").config();
-const get_event_now = `
+const update_ticket = `
 query ($id:Int!) {
     TicketTokens(where: {id: {_eq: $id}}) {
       approver
       event
       id
+      image_link
       owner_address
       price
       qrcode
       status
       ticket_type
       Event {
-        status
+        owner
+        end_date
       }
     }
   }
-  
 `;
 const execute = (variables) => __awaiter(void 0, void 0, void 0, function* () {
-    const fetchResponse = yield fetch(variables, get_event_now);
+    const fetchResponse = yield fetch(variables, update_ticket);
     const data = yield fetchResponse.json();
     return data;
 });
 module.exports = execute;
-//# sourceMappingURL=get_ticket_id.js.map
+//# sourceMappingURL=get_ticket.js.map

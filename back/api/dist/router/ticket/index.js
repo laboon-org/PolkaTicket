@@ -21,6 +21,7 @@ const create_exchange = require("./create_exchange");
 const update_account = require("../account/update_account");
 const update_event_ticket = require("../event/update_event");
 const get_event_ticket = require("../statistic/get_event");
+const get_ticket_ids = require("../statistic/get_ticket_id");
 var moment = require("moment-timezone");
 router.post("/close", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body.event.data.new;
@@ -42,7 +43,7 @@ router.post("/close", (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 }));
 router.post("/create", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { create_at, user_id, type, event, owner_address, ticket_type, supply, approver, price, image_link } = req.body.input;
+    const { create_at, user_id, type, event, owner_address, ticket_type, supply, approver, price, image_link, } = req.body.input;
     var dem = 0;
     try {
         for (var i = 0; i < supply; i++) {
@@ -55,7 +56,7 @@ router.post("/create", (req, res) => __awaiter(void 0, void 0, void 0, function*
                 approver,
                 ticket_type,
                 price,
-                image_link
+                image_link,
             });
             console.log("test123", data);
             dem = dem + 1;
@@ -65,10 +66,16 @@ router.post("/create", (req, res) => __awaiter(void 0, void 0, void 0, function*
         const event_data = yield get_event_ticket({ id: event });
         console.log(account);
         const ticket_issued = account.data.UserNonce[0].ticket_issued + dem;
-        const update = yield update_account({ id: account.data.UserNonce[0].id, input: { ticket_issued } });
-        const data_update_event = yield update_event_ticket({ id: event, input: {
-                ticket_issued: event_data.data.Event[0].ticket_issued + dem
-            } });
+        const update = yield update_account({
+            id: account.data.UserNonce[0].id,
+            input: { ticket_issued },
+        });
+        const data_update_event = yield update_event_ticket({
+            id: event,
+            input: {
+                ticket_issued: event_data.data.Event[0].ticket_issued + dem,
+            },
+        });
         console.log(data_update_event);
         console.log(update, account);
         return res.status(200).json({
@@ -89,7 +96,7 @@ router.post("/createbuy", (req, res) => __awaiter(void 0, void 0, void 0, functi
             ticket_id,
             user_id,
             owner_address,
-            id_transaction
+            id_transaction,
         });
         console.log(data);
         return res.status(200).json({
@@ -134,25 +141,46 @@ router.post("/approve", (req, res) => __awaiter(void 0, void 0, void 0, function
     const { user_id, token } = req.body.input;
     try {
         const data = yield get_user_access({ user_id, token });
+        const data_ticket_id = yield get_ticket_ids({ id: token });
         if (data.data.UserAccessToken.length > 0) {
-            const data = yield update_ticket({ id: token });
-            console.log(data);
-            return res.status(200).json({
-                data: {
-                    mes: "Great! Your ticket check has been successful.",
+            if (data_ticket_id.data.TicketTokens[0].Event.status == 1) {
+                if (data_ticket_id.data.TicketTokens[0].status == 1) {
+                    if (data_ticket_id.data.TicketTokens[0].ticket_type == 1) {
+                        const data = yield update_ticket({ id: token });
+                        console.log(data);
+                    }
+                    return res.status(200).json({
+                        data: {
+                            mes: 1,
+                        },
+                    });
                 }
-            });
+                else {
+                    res.status(201).json({
+                        data: {
+                            mes: 2,
+                        },
+                    });
+                }
+            }
+            else {
+                res.status(201).json({
+                    data: {
+                        mes: 3,
+                    },
+                });
+            }
         }
         else {
             res.status(201).json({
                 data: {
-                    mes: "Bạn không có quyên phê duyệt vé",
-                }
+                    mes: 0,
+                },
             });
         }
     }
     catch (_e) {
-        return res.send("Sorry! Your ticket has been used. Please try again with a QR code.");
+        return res.send("Lỗi");
     }
 }));
 router.post("/create_exchange", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
