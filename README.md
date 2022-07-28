@@ -14,8 +14,13 @@
 
 - Name: Polka-Ticket
 - Description: A decentralized NFT Ticking System for full cycle issuing and manageable in modern ways.
-- We plan to users Substrate in next phase
 
+#### What's next (Milestones)
+
+Q3-2022: Implement Sub-State and Event Management for Eco-System
+Q4-2022: Ticket Staking, Mobile App
+Q1-2023: Complete Roles of Stakeholders, Sponsors, and Influencers
+Q2-2023: Support Multiple Chain, Governance Token
 #### Members
 
 ```sh
@@ -26,6 +31,7 @@
 - Duy Le
 - Tu Nguyen
 4. Backend Developer: Duy Nguyen, Dat Nguyen
+5. Blockchain Developer: Hiep Le, Son Lam
 ```
 
 ### B. 5 minute Pitch Video
@@ -55,3 +61,4 @@
 ### E. Project Demo Link
 
 - Demo: https://polka-ticket.law3.app/
+- Credential: admin / 9rR9fT29tvPZ
