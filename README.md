@@ -15,6 +15,15 @@
 - Name: Polka-Ticket
 - Description: A decentralized NFT Ticking System for full cycle issuing and manageable in modern ways.
 
+#### Features
+
+- [x] Login With Wallet
+- [x] Home, Action Menu, Event Listing
+- [ ] Search, Ticket Booking
+- [ ] Profile and Setting
+- [ ] Ticket Comsumption
+- [ ] Event Management
+
 #### What's next (Milestones)
 
 - [x] Q3-2022: Implement Sub-State and Event Management for Eco-System
@@ -53,11 +62,12 @@
 
 - [x] ReactJS
 - [x] IPFS
-- [ ] MoonBeam
+- [ ] Acala EVM+
+- [ ] Polkadot Wallet Integration
+- [ ] Astar Network
 - [x] Solidity
 - [x] TailwindCSS
 - [x] Web3
-- [x] Metamask
 
 ### E. Project Demo Link
 
