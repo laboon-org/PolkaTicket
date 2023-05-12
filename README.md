@@ -17,10 +17,10 @@
 
 #### What's next (Milestones)
 
-- Q3-2022: Implement Sub-State and Event Management for Eco-System
-- Q4-2022: Ticket Staking, Mobile App
-- Q1-2023: Complete Roles of Stakeholders, Sponsors, and Influencers
-- Q2-2023: Support Multiple Chain, Governance Token
+- [x] Q3-2022: Implement Sub-State and Event Management for Eco-System
+- [x] Q4-2022: Ticket Staking, Mobile App
+- [x] Q1-2023: Complete Roles of Stakeholders, Sponsors, and Influencer (WIP)
+- [ ] Q2-2023: Support Multiple Chain, Governance Token
 
 #### Members
 
@@ -51,13 +51,13 @@
 
 ### D. List of Tech Stack Used
 
-- ReactJS
-- IPFS
-- MoonBeam
-- Solidity
-- TailwindCSS
-- Web3
-- Metamask
+- [x] ReactJS
+- [x] IPFS
+- [ ] MoonBeam
+- [x] Solidity
+- [x] TailwindCSS
+- [x] Web3
+- [x] Metamask
 
 ### E. Project Demo Link
 
