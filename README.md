@@ -21,7 +21,7 @@
 - [x] Home, Action Menu, Event Listing
 - [ ] Search, Ticket Booking
 - [ ] Profile and Setting
-- [ ] Ticket Comsumption
+- [ ] Ticket Consumption
 - [ ] Event Management
 
 #### What's next (Milestones)
@@ -62,8 +62,8 @@
 
 - [x] ReactJS
 - [x] IPFS
-- [ ] Acala EVM+
-- [ ] Polkadot Wallet Integration
+- [ ] Acala EVM+ with Chopstick
+- [ ] Polkadot Wallet Integration (https://polkadot.js.org/)
 - [ ] Astar Network
 - [x] Solidity
 - [x] TailwindCSS
