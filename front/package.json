@@ -1,11 +1,11 @@
 {
   "name": "polka-ticket",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.6.9",
     "@babel/helper-get-function-arity": "^7.16.7",
-    "@craco/craco": "^7.1.0",
+    "@craco/craco": "^5.9.0",
     "@date-io/date-fns": "^2.14.0",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
@@ -38,7 +38,7 @@
     "typescript": "^4.1.4"
   },
   "scripts": {
-    "start": "craco start",
+    "start": "craco start --openssl-legacy-provider",
     "build": "craco build",
     "test": "craco test",
     "lint": "eslint ./",
@@ -63,7 +63,6 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.30.0",
     "@typescript-eslint/parser": "^5.30.0",
-    "eslint": "^7.32.0",
     "eslint-plugin-react": "^7.30.1",
     "postcss-import": "^12.0.1",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17"
