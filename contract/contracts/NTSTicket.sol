@@ -330,7 +330,7 @@ contract TRC721 is ITRC721 {
     }
 }
 
-contract Ticket is TRC721 {
+contract NTSTicket is TRC721 {
     using SafeMath for uint256;
 
     string public name;
@@ -385,8 +385,8 @@ contract Ticket is TRC721 {
 
     constructor() {
         owner = msg.sender;
-        name = "De Tron Event";
-        symbol = "DTE";
+        name = "PolkaTicket";
+        symbol = "PKT";
         setUri("http://localhost");
     }
 

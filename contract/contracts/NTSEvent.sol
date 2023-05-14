@@ -152,7 +152,7 @@ interface ITRC721 {
     ) external;
 }
 
-contract DeTronEvent {
+contract NTSEvent {
     using SafeMath for uint256;
     using Counters for Counters.Counter;
     Counters.Counter private _itemIds;
