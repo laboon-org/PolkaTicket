@@ -2,7 +2,6 @@ import React from 'react'
 import {BsCheckLg} from 'react-icons/bs'
 import {BiCopy} from 'react-icons/bi'
 
-import IMG_TEZOS from '../../../../assets/images/icon-tezos.png'
 import IMG_TETHER from '../../../../assets/images/icon-tether.png'
 import IMG_ETHERUM from '../../../../assets/images/icon-etherum.png'
 
@@ -45,17 +44,6 @@ const WalletSetting = () => {
         <section className='mt-6 wallet-setting-section'>
           <h6 className='mt-6 font-semibold text-lg'>Balance:</h6>
           <div className='balance-items'>
-
-            <div className='mt-3 flex justify-between items-start'>
-              <div className='flex items-center'>
-                <img src={IMG_TEZOS} alt="Tezos" className='object-cover h-6'/>
-                <p className='ml-3 text-lg'>Tezos</p>
-              </div>
-              <div className='flex flex-col items-end'>
-                <p className='text-lg font-semibold'>3,025<span> XTZ</span></p>
-                <p className='ml-3 text-sm text-gray-500'>(13,025 $)</p>
-              </div>
-            </div>
 
             <div className='mt-3 flex justify-between items-start'>
               <div className='flex items-center'>
