@@ -6,8 +6,8 @@
 0. Prequisites
 
 ```sh
-node v18
-npm v9
+node v16.20.0
+npm v8.19.4
 ```
 
 1. Make sure you have https://nodejs.org/ installed on your computer
