@@ -2,6 +2,14 @@
 
 - Acala
 
+## Getting Started
+
+- https://evmdocs.acala.network/network/predeployed-smart-contracts/details
+
+## Service
+
+- https://riot.im/app/#/room/#acala-faucet:matrix.org
+
 ## Features
 
 (Event:Methods)
@@ -23,3 +31,10 @@
 - [ ] verifyAdmin
 - [ ] getTicket
 - [ ] getListTicket
+
+## Fix Policy on Win
+
+```sh
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+Set-ExecutionPolicy -ExecutionPolicy AllSigned -Scope LocalMachine
+```

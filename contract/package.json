@@ -1,0 +1,12 @@
+{
+  "name": "contract",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "truffle": "^5.9.0"
+  },
+  "devDependencies": {
+    "@truffle/hdwallet-provider": "^2.1.11"
+  }
+}

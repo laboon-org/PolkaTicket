@@ -18,10 +18,21 @@
  *
  */
 
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
-//
+const HDWalletProvider = require('@truffle/hdwallet-provider');
+
+const mnemonicPhrase = 'xxx';
+
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
+
+const mandalaConfig = (endpointUrl) => ({
+  provider: () => new HDWalletProvider(mnemonicPhrase, endpointUrl),
+  network_id: 595,
+  gasPrice: 0x2f03a803ea, // storage_limit = 64001, validUntil = 360001, gasLimit = 10000000
+  gas: 0x329b140,
+  timeoutBlocks: 25,
+  confirmations: 0
+});
 
 module.exports = {
   /**
@@ -41,12 +52,15 @@ module.exports = {
     // tab if you use this network and you must also set the `host`, `port` and `network_id`
     // options below to some value.
     //
-    // development: {
-    //  host: "127.0.0.1",     // Localhost (default: none)
-    //  port: 8545,            // Standard Ethereum port (default: none)
-    //  network_id: "*",       // Any network (default: none)
-    // },
-    //
+    development: {
+     host: "127.0.0.1",     // Localhost (default: none)
+     port: 8545,            // Standard Ethereum port (default: none)
+     network_id: "*",       // Any network (default: none)
+    },
+    // 
+    mandala: mandalaConfig("http://127.0.0.1:8545"),
+    mandalaPublicDev: mandalaConfig("https://eth-rpc-mandala.aca-staging.network"),
+    // 
     // An additional network, but with some advanced options…
     // advanced: {
     //   port: 8777,             // Custom port
@@ -78,13 +92,13 @@ module.exports = {
 
   // Set default mocha options here, use special reporters, etc.
   mocha: {
-    // timeout: 100000
+    timeout: 100000
   },
 
   // Configure your compilers
   compilers: {
     solc: {
-      version: "0.8.15",      // Fetch exact version from solc-bin (default: truffle's version)
+      version: "0.8.9",      // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       // settings: {          // See the solidity docs for advice about optimization and evmVersion
       //  optimizer: {
