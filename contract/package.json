@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "truffle compile"
+    "build": "truffle compile",
+    "test": "truffle test",
+    "test-mandala": "truffle test --network mandala"
   },
   "dependencies": {
     "truffle": "^5.9.0"

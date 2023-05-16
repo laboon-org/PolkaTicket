@@ -10,6 +10,10 @@
 
 - https://riot.im/app/#/room/#acala-faucet:matrix.org
 
+## Network
+
+- https://blockscout.acala.network/
+
 ## Guide
 
 - https://evmdocs.acala.network/tutorials/truffle-tutorials/helloworld-tutorial#setup-an-empty-truffle-project (WIP)

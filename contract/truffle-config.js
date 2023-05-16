@@ -20,7 +20,7 @@
 
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 
-const mnemonicPhrase = 'xxx';
+const mnemonicPhrase = 'host bus stereo know goddess sudden violin method suggest pen borrow donate';
 
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
@@ -52,14 +52,14 @@ module.exports = {
     // tab if you use this network and you must also set the `host`, `port` and `network_id`
     // options below to some value.
     //
-    development: {
-     host: "127.0.0.1",     // Localhost (default: none)
-     port: 8545,            // Standard Ethereum port (default: none)
-     network_id: "*",       // Any network (default: none)
-    },
-    // 
-    mandala: mandalaConfig("http://127.0.0.1:8545"),
-    mandalaPublicDev: mandalaConfig("https://eth-rpc-mandala.aca-staging.network"),
+    // development: {
+    //  host: "http://127.0.0.1",     // Localhost (default: none)
+    //  port: 8545,            // Standard Ethereum port (default: none)
+    //  network_id: "*",       // Any network (default: none)
+    // },
+    // mandala: mandalaConfig("http://127.0.0.1:8545"),
+    // mandalaPublicDev: mandalaConfig("https://eth-rpc-mandala.aca-staging.network"),
+    development: mandalaConfig("https://eth-rpc-mandala.aca-staging.network"),
     // 
     // An additional network, but with some advanced options…
     // advanced: {
