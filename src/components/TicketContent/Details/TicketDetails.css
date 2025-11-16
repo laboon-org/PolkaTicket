@@ -1,0 +1,15 @@
+.detail-item {
+  @apply flex mt-8;
+  .detail-icon {
+    i {
+      @apply block p-4 rounded-full text-2xl bg-subBgColor text-primaryColor;
+    }
+  }
+  .detail-info {
+    @apply flex flex-col self-center ml-6;
+    h6 {
+      @apply font-bold;
+    }
+  }
+}
+
