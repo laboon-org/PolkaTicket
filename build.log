@@ -1,0 +1,28 @@
+
+> polka-ticket@1.1.0-stable build
+> react-scripts build
+
+Creating an optimized production build...
+
+warn - The `purge`/`content` options have changed in Tailwind CSS v3.0.
+warn - Update your configuration file to eliminate this warning.
+warn - https://tailwindcss.com/docs/upgrade-guide#configure-content-sources
+
+warn - The `darkMode` option in your Tailwind CSS configuration is set to `false`, which now behaves the same as `media`.
+warn - Change `darkMode` to `media` or remove it entirely.
+warn - https://tailwindcss.com/docs/upgrade-guide#remove-dark-mode-configuration
+Failed to compile.
+
+[eslint] 
+src/api/client.ts
+  Line 33:10:  Require statement not part of import statement  @typescript-eslint/no-var-requires
+
+src/data/wallets.tsx
+  Line 1:58:  Unnecessary semicolon  @typescript-eslint/no-extra-semi
+
+src/index.js
+  Line 22:1:  ReactDOM.render is deprecated since React 18.0.0, use createRoot instead, see https://reactjs.org/link/switch-to-createroot  react/no-deprecated
+
+Search for the keywords to learn more about each error.
+
+
