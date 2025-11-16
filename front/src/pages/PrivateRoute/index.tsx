@@ -1,17 +1,12 @@
 import React from 'react'
-import { Navigate } from 'react-router-dom'
 
 interface Props {
   element: React.ReactElement;
 }
 
 const PrivateRoute: React.FC<Props> = ({ element }: Props): React.ReactElement => {
-  const auth = localStorage.getItem('private_route')
-  return (
-    auth
-      ? element
-      : <Navigate to="/private_route" />
-  )
+  // v1.1.0-stable: Authentication removed for direct wallet-based access
+  return element
 }
 
 export default PrivateRoute

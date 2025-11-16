@@ -33,12 +33,11 @@ const TicketDateModal: React.FC<Props> = ({selectedDate, setSelectedDate, setAct
         <div className='w-full mt-12'>
           <StaticDatePicker
             displayStaticWrapperAs="desktop"
-            showToolbar={true}
+            
             value={dateValue}
             onChange={(newValue) => {
               setDateValue(newValue);
             }}
-            renderInput={(params) => <TextField {...params} />}
           />
         </div>
         <div className='w-10/12'>

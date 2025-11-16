@@ -5,7 +5,6 @@ import { client } from "./api/client"
 
 import { Exit } from './util/GlobalExit';
 import './App.css'
-import PrivateRouteForm from './pages/PrivateRoute/PrivateRouteForm';
 import PrivateRoute from './pages/PrivateRoute';
 import GlobalStyles from './components/GlobalStyles/global';
 import Loading from './components/Loading/Loading'
@@ -48,7 +47,6 @@ const App: React.FC = (): ReactElement => {
           <div className='App'>
             <Routes>
               <Route path="/" element={<PrivateRoute element={<Welcome />} />} />
-              <Route path="/private_route" element={<PrivateRouteForm />} />
               <Route path="/login" element={<PrivateRoute element={<Login />} />} />
               <Route path="/home" 
                 element={<PrivateRoute 

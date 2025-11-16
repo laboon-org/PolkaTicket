@@ -50,7 +50,7 @@ const PrivateRouteForm = () => {
         </div>
       </div>
       <p className="text-center text-gray-500 text-xs">
-        &copy; 2022, <a href="https://laboon.org">Laboon .Pte .Ltd</a>
+        &copy; 2022 - 2025, <a href="https://kientaoso.com">KienTaoSo.com</a>
       </p>
     </div>
   )

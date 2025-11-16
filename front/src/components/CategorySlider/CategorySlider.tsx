@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react/swiper-react.js';
-
-import 'swiper/swiper.min.css';
-import 'swiper/modules/pagination/pagination.min.css';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 import categories from '../../data/categories';
 

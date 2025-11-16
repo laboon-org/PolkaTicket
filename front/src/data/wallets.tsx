@@ -1,4 +1,4 @@
-import IMG_METAMASK from '../assets/images/metamask.png';;
+import IMG_METAMASK from '../assets/images/metamask.png';
 import IMG_POLKA from '../assets/images/polka_wallet.png';
 
 const wallets: {id: number, name: string, img: string, unit: string, available: boolean}[] = [

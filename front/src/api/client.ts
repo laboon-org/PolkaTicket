@@ -1,14 +1,38 @@
-import { ApolloClient, InMemoryCache, HttpLink, ApolloLink } from "@apollo/client";
+import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
+import mockTicketCollections from "../data/mockTicketCollections";
+import { getTicketCollections } from './queries';
 
+// v1.1.0-stable: Disabled external GraphQL API to avoid CORS issues
+// Using mock data for local development and testing
 const httpLink = new HttpLink({
-  uri: "https://laboon-nts-v2.hasura.app/v1/graphql",
+  uri: "http://localhost:3001/graphql", // Mock endpoint (not used)
   headers: {
-    "x-hasura-admin-secret": "5iccCRnL4BFDk7jU8HbOGLuTItamh7HrvQi9JjD23OzOWiVtP7Q6fcShcNabfja8",
-    "x-hasura-role": "admin"
+    "Content-Type": "application/json"
   }
 });
 
+const cache = new InMemoryCache();
+
 export const client = new ApolloClient({
-  cache: new InMemoryCache(),
+  cache,
   link: httpLink,
+  // Disable network requests - use mock data only
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'cache-first',
+      errorPolicy: 'ignore',
+    },
+    query: {
+      fetchPolicy: 'cache-first',
+      errorPolicy: 'ignore',
+    },
+  },
+});
+
+// Initialize cache with mock data
+cache.writeQuery({
+  query: getTicketCollections,
+  data: {
+    ticketCollections: mockTicketCollections,
+  },
 });

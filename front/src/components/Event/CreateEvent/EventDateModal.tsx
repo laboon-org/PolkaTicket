@@ -33,12 +33,11 @@ const EventDateModal: React.FC<Props> = ({selectedDate, setSelectedDate, setActi
         <div className='w-full mt-12'>
           <StaticDatePicker
             displayStaticWrapperAs="desktop"
-            showToolbar={true}
+            
             value={dateValue}
             onChange={(newValue) => {
               setDateValue(newValue);
             }}
-            renderInput={(params) => <TextField {...params} />}
           />
         </div>
         <div className='w-10/12'>

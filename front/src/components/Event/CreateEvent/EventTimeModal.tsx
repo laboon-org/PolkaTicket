@@ -38,12 +38,11 @@ const EventTimeModal: React.FC<Props> = ({selectedTime, setSelectedTime, setActi
         <div className='w-full mt-12 relative'>
           <StaticTimePicker
             displayStaticWrapperAs="desktop"
-            showToolbar={true}
+            
             value={timeValue}
             onChange={(newValue) => {
               newValue && setTimeValue(newValue);
             }}
-            renderInput={(params) => <TextField {...params} />}
           />
         </div>
         <div className='w-10/12'>
