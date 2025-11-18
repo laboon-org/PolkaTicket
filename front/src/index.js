@@ -6,6 +6,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { PolkadotProvider } from './contexts/PolkadotContext';
+import { WalletProvider } from './contexts/WalletContext';
 
 const theme = createTheme({
   typography: {
@@ -27,7 +29,11 @@ root.render(
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <App />
+          <PolkadotProvider>
+            <WalletProvider>
+              <App />
+            </WalletProvider>
+          </PolkadotProvider>
         </LocalizationProvider>
       </ThemeProvider>
     </BrowserRouter>

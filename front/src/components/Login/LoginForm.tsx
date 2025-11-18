@@ -1,16 +1,38 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { useNavigate, NavigateFunction } from 'react-router-dom';
 
 import IMG_LOGO from '../../assets/images/polka.png';
 import wallets from '../../data/wallets';
 import './LoginForm.css';
 import {LoginCheck} from '../../util/LoginCheck';
+import { useWallet } from '../../contexts/WalletContext';
 
 
 const LoginForm: React.FC = (): ReactElement => {
   const navigate: NavigateFunction = useNavigate();
-  const handleLogin = () => {
-    LoginCheck() ? navigate('/home') : navigate('/');
+  const { connectMetaMask, connectPolkadot, isConnecting, error } = useWallet();
+  const [connectingWallet, setConnectingWallet] = useState<number | null>(null);
+  
+  const handleWalletConnect = async (walletId: number, walletName: string) => {
+    setConnectingWallet(walletId);
+    
+    try {
+      if (walletName.toLowerCase() === 'metamask') {
+        await connectMetaMask();
+      } else if (walletName.toLowerCase().includes('polkadot')) {
+        await connectPolkadot();
+      }
+      
+      // After successful connection, navigate to home
+      if (LoginCheck()) {
+        navigate('/home');
+      }
+    } catch (err) {
+      console.error('Connection failed:', err);
+      // Stay on login page if connection fails
+    } finally {
+      setConnectingWallet(null);
+    }
   }
   return (
     <div className='container'>
@@ -31,6 +53,15 @@ const LoginForm: React.FC = (): ReactElement => {
         </div>
       </div>
 
+      {/* Error Display */}
+      {error && (
+        <div className='mt-6 p-4 bg-red-50 border border-red-200 rounded-lg'>
+          <p className='text-sm text-red-800 text-center'>
+            ❌ {error}
+          </p>
+        </div>
+      )}
+
       {/* Connect Field */}
       <div id='wallets' className='login-field flex-1 mt-2 mb-20 w-full'>
         {wallets.map(wallet => (
@@ -47,11 +78,12 @@ const LoginForm: React.FC = (): ReactElement => {
             {wallet.available 
               ? <button 
                   type='button'
-                  onClick={handleLogin}
+                  onClick={() => handleWalletConnect(wallet.id, wallet.name)}
+                  disabled={connectingWallet === wallet.id}
                   className='text-primaryColor py-4 pl-4 cursor-pointer opacity-75 
-                    hover:opacity-100 focus:opacity-100'
+                    hover:opacity-100 focus:opacity-100 disabled:opacity-50'
                 >
-                  Connect
+                  {connectingWallet === wallet.id ? 'Connecting...' : 'Connect'}
                 </button>
               : <p className='disabled opacity-50 py-4 pl-4'>Coming Soon!</p>}
           </div>

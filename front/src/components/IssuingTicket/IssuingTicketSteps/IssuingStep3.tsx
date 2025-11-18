@@ -4,6 +4,7 @@ import { MdRemoveCircle } from 'react-icons/md';
 
 import { useMutation } from '@apollo/client';
 import { CreateTicket, CREATE_TICKET } from '../../../api/mutation/createTicket';
+import { useWallet } from '../../../contexts/WalletContext';
 interface Props {
   setComplete: React.Dispatch<React.SetStateAction<boolean>>
   submitData: MutableRefObject<CreateTicket>
@@ -14,18 +15,52 @@ const IssuingStep3: React.FC<Props> = ({ setComplete, submitData }: Props) => {
   const [approvals, setApprovals] = useState<string[]>([]);
   const [approvalInput, setApprovalInput] = useState<string>('');
   const [createTicket, { data, loading, error }] = useMutation(CREATE_TICKET);
+  const [isMinting, setIsMinting] = useState<boolean>(false);
+  const [mintError, setMintError] = useState<string | null>(null);
+  
+  // Get wallet context
+  const { isConnected, walletType, mintTicket } = useWallet();
 
   const handleAddApproval = () => {
     approvalInput && setApprovals([...approvals, approvalInput]);
     setApprovalInput('');
   }
   
-  const submit = () => {
-    createTicket({
-      variables: {
-        ...submitData.current
-      }
-    })
+  const submit = async () => {
+    // Check if wallet is connected
+    if (!isConnected) {
+      setMintError('Please connect your wallet first');
+      return;
+    }
+
+    setIsMinting(true);
+    setMintError(null);
+
+    try {
+      // Mint NFT ticket on blockchain
+      const result = await mintTicket(
+        submitData.current.event || 1,
+        submitData.current.ticket_type || 1,
+        `ticket-${Date.now()}-${submitData.current.event}`
+      );
+
+      console.log('✅ Ticket minted on blockchain:', result);
+
+      // Then create ticket in database
+      await createTicket({
+        variables: {
+          ...submitData.current
+        }
+      });
+
+      console.log('✅ Ticket saved to database');
+      setComplete(true);
+    } catch (err: any) {
+      console.error('❌ Minting failed:', err);
+      setMintError(err.message || 'Failed to mint ticket');
+    } finally {
+      setIsMinting(false);
+    }
   }
 
   return (
@@ -84,9 +119,46 @@ const IssuingStep3: React.FC<Props> = ({ setComplete, submitData }: Props) => {
           </>
         )}
       </article>
+      
+      {/* Wallet Status */}
+      {!isConnected && (
+        <article className='mt-6'>
+          <div className='p-4 bg-yellow-50 border border-yellow-200 rounded-lg'>
+            <p className='text-sm text-yellow-800'>
+              ⚠️ Please connect your wallet to issue tickets on blockchain
+            </p>
+          </div>
+        </article>
+      )}
+
+      {isConnected && walletType && (
+        <article className='mt-6'>
+          <div className='p-4 bg-green-50 border border-green-200 rounded-lg'>
+            <p className='text-sm text-green-800'>
+              ✅ Connected via {walletType === 'metamask' ? 'MetaMask (Moonbase Alpha)' : 'Polkadot.js'}
+            </p>
+          </div>
+        </article>
+      )}
+
+      {/* Error Display */}
+      {mintError && (
+        <article className='mt-6'>
+          <div className='p-4 bg-red-50 border border-red-200 rounded-lg'>
+            <p className='text-sm text-red-800'>
+              ❌ {mintError}
+            </p>
+          </div>
+        </article>
+      )}
+
       <article className='footer-full-w-btn w-full mt-10 mb-32'>
-        <button className='primary-btn' onClick={submit}>
-          Issuing Ticket
+        <button 
+          className='primary-btn' 
+          onClick={submit}
+          disabled={!isConnected || isMinting}
+        >
+          {isMinting ? 'Minting Ticket...' : 'Issue Ticket on Blockchain'}
         </button>
       </article>
     </>

@@ -1,71 +1,75 @@
-# Polka Ticket
+# Polka-Ticket
 
-> Decentralized NFT ticketing platform powered by Polkadot
+- Polkadot: NFT Ticking System
 
-**Live Demo:** https://polka-ticket-ii1x7sid7-hles-projects.vercel.app
+## System Guideline
 
-## Overview
+1. Frontend [Frontend] (front/README.md)
+2. Backend [Backend] (back/README.md)
+3. Contract [Contract] (contract/README.md)
 
-Polka Ticket is a production-ready NFT ticketing platform built on Astar Network with cross-chain capabilities, privacy features, and dynamic NFTs.
+## Submission
 
-## Key Features
+### A. Project Description
 
-- 🎫 **NFT Ticketing** - PSP34 standard on Astar
-- 🌉 **Cross-Chain** - XCM transfers (Astar ↔ Moonbeam)
-- 🔐 **Privacy** - Zero-knowledge proofs
-- 🎨 **Dynamic NFTs** - Evolving metadata
-- 🗳️ **Governance** - DAO proposals & voting
-- 🏪 **Marketplace** - Secondary ticket market
+- Name: Polka-Ticket
+- Description: A decentralized NFT Ticking System for full cycle issuing and manageable in modern ways.
 
-## Quick Start
+#### Features
 
-```bash
-# Frontend
-cd front
-npm install --legacy-peer-deps
-npm start
+- [x] Login With Wallet
+- [x] Home, Action Menu, Event Listing
+- [ ] Search, Ticket Booking
+- [ ] Profile and Setting
+- [ ] Ticket Consumption
+- [ ] Event Management
+
+#### What's next (Milestones)
+
+- [x] Q3-2022: Implement Sub-State and Event Management for Eco-System
+- [x] Q4-2022: Ticket Staking, Mobile App
+- [x] Q1-2023: Complete Roles of Stakeholders, Sponsors, and Influencer (WIP)
+- [ ] Q2-2023: Support Multiple Chain, Governance Token
+
+#### Members
+
+```sh
+1. Team Leader (Blockchain Developer): https://devpost.com/solokop (Hiep Le)
+2. Business Analyst: https://devpost.com/f2haiphong (Hien Nguyen)
+3. Frontend Developer:
+- https://devpost.com/nguyennghidt6 (Nghi Nguyen)
+- Duy Le
+- Tu Nguyen
+4. Backend Developer: Duy Nguyen, Dat Nguyen
+5. Blockchain Developer: Hiep Le, Son Lam
 ```
 
-Visit http://localhost:3000
+### B. 5 minute Pitch Video
 
-## Documentation
+- Project Name: Polka-Ticket
+- Presentation-1: https://www.youtube.com/watch?v=l05JZxKclZ4
+- Presentation-2: https://www.youtube.com/watch?v=F6_INsvaY5A (Final One)
 
-- [Setup Guide](docs/SETUP.md)
-- [Architecture](docs/ARCHITECTURE.md)
-- [Features](docs/FEATURES.md)
-- [Deployment](docs/DEPLOYMENT.md)
-- [Testnet Guide](docs/TESTNET.md)
+#### Design UX/UI
 
-## Project Structure
+- Figma Link: https://www.figma.com/file/g257qMBIsiP80HGhYO559q/NTS-v2_PolkaTicket?node-id=0%3A1
 
-```
-├── front/          # React frontend
-├── back/           # Backend API
-├── contract/       # Smart contracts
-└── docs/           # Documentation
-```
+### C. GitHub Repo Link
 
-## Tech Stack
+- Link: https://github.com/hieple7985/polkaTicket/tree/develop
 
-**Frontend:** React 18, TypeScript, TailwindCSS, Material-UI  
-**Blockchain:** Polkadot.js, Astar Network, Moonbeam  
-**Storage:** IPFS  
-**Services:** XCM, Privacy (ZK), Governance, Dynamic NFT
+### D. List of Tech Stack Used
 
-## Status
+- [x] ReactJS
+- [x] IPFS
+- [ ] Acala EVM+ with Chopstick
+- [ ] Polkadot Wallet Integration (https://polkadot.js.org/)
+- [ ] Astar Network
+- [x] Solidity
+- [x] TailwindCSS
+- [x] Web3
 
-- ✅ Production deployment on Vercel
-- ✅ 81% features working with mock data
-- ⏳ Testnet integration pending tokens
+### E. Project Demo Link
 
-## Team
-
-- Team Leader: Hiep Le
-- Business Analyst: Hien Nguyen
-- Frontend: Nghi Nguyen, Duy Le, Tu Nguyen
-- Backend: Duy Nguyen, Dat Nguyen
-- Blockchain: Hiep Le, Son Lam
-
-## License
-
-MIT
+- Demo: https://polka-ticket.law3.app/
+- Credential: admin / 9rR9fT29tvPZ

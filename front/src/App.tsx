@@ -37,6 +37,7 @@ const Event: LazyExoticComponent<React.FC> = React.lazy(() => import('./pages/Ev
 const EventDetail: LazyExoticComponent<React.FC> = React.lazy(() => import('./components/Event/EventDetail'));
 const CreateEvent: LazyExoticComponent<React.FC> = React.lazy(() => import('./components/Event/CreateEvent'));
 const IssuedTicket: LazyExoticComponent<React.FC> = React.lazy(() => import('./pages/User/IssuedTicket'));
+const TestMintPage: LazyExoticComponent<React.FC> = React.lazy(() => import('./pages/TestMintPage'));
 
 const App: React.FC = (): ReactElement => {
   const [isExit, setExit] = useState<boolean>(false);
@@ -105,6 +106,9 @@ const App: React.FC = (): ReactElement => {
                 element={<PrivateRoute 
                   element={<React.Suspense 
                     fallback={<Loading />}><CreateEvent /></React.Suspense>} />} />
+              <Route path="/test-mint" 
+                element={<React.Suspense 
+                  fallback={<Loading />}><TestMintPage /></React.Suspense>} />
               <Route path="*" element={<Error />}/>
             </Routes>
           </div>

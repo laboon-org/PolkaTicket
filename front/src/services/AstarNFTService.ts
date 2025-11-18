@@ -2,9 +2,9 @@ import { ApiPromise } from '@polkadot/api';
 import { web3FromAddress } from '@polkadot/extension-dapp';
 import { InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
 
-// PSP34 NFT Contract on Astar Shibuya
-// This is a placeholder - will be replaced with actual deployed contract
-const NFT_CONTRACT_ADDRESS = '5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY';
+// NFT Contract on Moonbase Alpha (Polkadot EVM)
+// Deployed: 2025-11-18
+const NFT_CONTRACT_ADDRESS = '0x9f0b44f152EdDFB99f0206D2E7E390b5ED69372b';
 
 export interface TicketMetadata {
   eventId: string;

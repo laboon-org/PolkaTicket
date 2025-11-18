@@ -1,0 +1,76 @@
+Traceback (most recent call last):
+  File "/Users/hle/.pyenv/versions/3.10.4/lib/python3.10/site-packages/web3/contract/utils.py", line 204, in call_contract_function
+    output_data = w3.codec.decode(output_types, return_data)
+  File "/Users/hle/.pyenv/versions/3.10.4/lib/python3.10/site-packages/eth_abi/codec.py", line 162, in decode
+    return cast(Tuple[Any, ...], decoder(stream))
+  File "/Users/hle/.pyenv/versions/3.10.4/lib/python3.10/site-packages/eth_abi/decoding.py", line 131, in __call__
+    return self.decode(stream)
+  File "/Users/hle/.pyenv/versions/3.10.4/lib/python3.10/site-packages/eth_utils/functional.py", line 47, in inner
+    return callback(fn(*args, **kwargs))
+  File "/Users/hle/.pyenv/versions/3.10.4/lib/python3.10/site-packages/eth_abi/decoding.py", line 224, in decode
+    self.validate_pointers(stream)
+  File "/Users/hle/.pyenv/versions/3.10.4/lib/python3.10/site-packages/eth_abi/decoding.py", line 218, in validate_pointers
+    decoder(stream)
+  File "/Users/hle/.pyenv/versions/3.10.4/lib/python3.10/site-packages/eth_abi/decoding.py", line 131, in __call__
+    return self.decode(stream)
+  File "/Users/hle/.pyenv/versions/3.10.4/lib/python3.10/site-packages/eth_abi/decoding.py", line 250, in decode
+    raw_data = self.read_data_from_stream(stream)
+  File "/Users/hle/.pyenv/versions/3.10.4/lib/python3.10/site-packages/eth_abi/decoding.py", line 389, in read_data_from_stream
+    raise InsufficientDataBytes(
+eth_abi.exceptions.InsufficientDataBytes: Tried to read 32 bytes, only got 0 bytes.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Volumes/Extended HD/Work_Extended/opp_2025/devpost/hackathon/master_devpost/projects/010-polka-ticket/3_dev/contract/evm/test-contract.py", line 215, in test_contract
+    new_supply = contract.functions.totalSupply().call()
+  File "/Users/hle/.pyenv/versions/3.10.4/lib/python3.10/site-packages/web3/contract/contract.py", line 291, in call
+    return call_contract_function(
+  File "/Users/hle/.pyenv/versions/3.10.4/lib/python3.10/site-packages/web3/contract/utils.py", line 222, in call_contract_function
+    raise BadFunctionCallOutput(msg) from e
+web3.exceptions.BadFunctionCallOutput: Could not transact with/call contract function, is contract deployed correctly and chain synced?
+🧪 Testing NTSTicket Contract on Moonbase Alpha
+
+📍 Contract: 0x9f0b44f152EdDFB99f0206D2E7E390b5ED69372b
+🌐 Network: Moonbase Alpha (Chain ID: 1287)
+
+✅ Connected to Moonbase Alpha
+
+============================================================
+TEST 1: Read Contract Information
+============================================================
+❌ Name: Could not transact with/call contract function, is contract deployed correctly and chain synced?
+❌ Symbol: Could not transact with/call contract function, is contract deployed correctly and chain synced?
+❌ Owner: Could not transact with/call contract function, is contract deployed correctly and chain synced?
+❌ Total Supply: Could not transact with/call contract function, is contract deployed correctly and chain synced?
+
+============================================================
+TEST 2: Check Deployer Balance
+============================================================
+❌ Balance check failed: Could not transact with/call contract function, is contract deployed correctly and chain synced?
+
+============================================================
+TEST 3: Mint Test Ticket
+============================================================
+📝 Preparing to mint test ticket...
+💰 Account balance: 1.0999966875 DEV
+⛽ Gas estimate: 200000
+💸 Gas price: 0.03125 Gwei
+
+📤 Transaction sent: d450c0497f95de546f6555b4394b2e38423ac9d5cbc176dca9da82296cedf983
+⏳ Waiting for confirmation...
+✅ Ticket minted successfully!
+📍 Transaction: https://moonbase.moonscan.io/tx/d450c0497f95de546f6555b4394b2e38423ac9d5cbc176dca9da82296cedf983
+❌ Minting failed: Could not transact with/call contract function, is contract deployed correctly and chain synced?
+
+============================================================
+TEST SUMMARY
+============================================================
+✅ Contract is deployed and accessible
+✅ Read functions working
+✅ Contract ready for frontend integration
+
+🔗 View on Moonscan:
+   0x9f0b44f152EdDFB99f0206D2E7E390b5ED69372b
+   https://moonbase.moonscan.io/address/0x9f0b44f152EdDFB99f0206D2E7E390b5ED69372b
+

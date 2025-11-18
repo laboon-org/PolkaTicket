@@ -1,0 +1,18 @@
+{
+  "network": "moonbase-alpha",
+  "chainId": 1287,
+  "rpc": "https://rpc.api.moonbase.moonbeam.network",
+  "explorer": "https://moonbase.moonscan.io",
+  "contracts": {
+    "NTSTicket": {
+      "address": "0x9f0b44f152EdDFB99f0206D2E7E390b5ED69372b",
+      "name": "PolkaTicket",
+      "symbol": "PKT",
+      "deployedAt": "2025-11-18T16:00:00Z",
+      "deployer": "0x0bb37A89207bf524b9d482624971B8A5EE08Da85",
+      "transactionHash": "0x54a6447b2ce577d9d90261b9b334d329799cd59036b13c935286390765ede1f4",
+      "gasUsed": 53343,
+      "moonscanUrl": "https://moonbase.moonscan.io/address/0x9f0b44f152EdDFB99f0206D2E7E390b5ED69372b"
+    }
+  }
+}

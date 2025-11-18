@@ -1,0 +1,32 @@
+Traceback (most recent call last):
+  File "/Volumes/Extended HD/Work_Extended/opp_2025/devpost/hackathon/master_devpost/projects/010-polka-ticket/3_dev/contract/evm/deploy.py", line 194, in <module>
+    deploy_contract()
+  File "/Volumes/Extended HD/Work_Extended/opp_2025/devpost/hackathon/master_devpost/projects/010-polka-ticket/3_dev/contract/evm/deploy.py", line 140, in deploy_contract
+    name = deployed_contract.functions.name().call()
+  File "/Users/hle/.pyenv/versions/3.10.4/lib/python3.10/site-packages/web3/contract/base_contract.py", line 965, in __getattr__
+    raise ABIFunctionNotFound(
+web3.exceptions.ABIFunctionNotFound: ("The function 'name' was not found in this ", "contract's abi.")
+🚀 Starting deployment to Moonbase Alpha...
+
+📝 Deploying with account: 0x0bb37A89207bf524b9d482624971B8A5EE08Da85
+💰 Account balance: 1.09999834375 DEV
+
+📦 Compiling NTSTicket contract...
+
+✅ Contract compiled successfully!
+
+📦 Deploying NTSTicket contract...
+⏳ This may take 1-2 minutes...
+
+⛽ Estimated gas: 53343
+💸 Gas price: 0.03125 Gwei
+
+📤 Transaction sent: 54a6447b2ce577d9d90261b9b334d329799cd59036b13c935286390765ede1f4
+⏳ Waiting for confirmation...
+
+✅ NTSTicket deployed successfully!
+📍 Contract address: 0x9f0b44f152EdDFB99f0206D2E7E390b5ED69372b
+🔍 View on Moonscan: https://moonbase.moonscan.io/address/0x9f0b44f152EdDFB99f0206D2E7E390b5ED69372b
+
+
+❌ Error: ("The function 'name' was not found in this ", "contract's abi.")
